@@ -33,3 +33,11 @@ function FetchProvidersSuccess(searchResults, providerType) {
 
     store.dispatch(action);
 }
+
+export function ClearSearchResults() {
+    const action = {
+        type: ActionTypes.CLEAR_PROVIDERS
+    }
+
+    store.dispatch(action);
+}

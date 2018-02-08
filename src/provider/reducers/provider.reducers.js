@@ -22,3 +22,7 @@ export function setProviderResults (previous, action) {
 
     return newState;
 }
+
+export function clearProviders (previous, action) {
+    return previous.setIn(['providerState', 'providerSearchResults'], new ProviderSearchResults());
+}

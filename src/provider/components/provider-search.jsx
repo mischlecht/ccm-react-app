@@ -50,6 +50,8 @@ export default class ProviderSearchStateful extends Component {
             searchParams: newSearchParams,
             zipCodeIsValid: zipCodeIsValid
         });
+
+        this.resetProviderSearchResults();
     }
 
     updateProviderTypeParam(providerType) {
@@ -60,6 +62,12 @@ export default class ProviderSearchStateful extends Component {
             searchParams: newSearchParams,
             providerTypeIsValid: providerTypeIsValid
         });
+
+        this.resetProviderSearchResults();
+    }
+
+    resetProviderSearchResults() {
+        ProviderActions.ClearSearchResults();
     }
 
     handleSubmitSearch() {
