@@ -55,7 +55,7 @@ EditNameStateful.propTypes = {
 export class EditNameStateless extends React.Component {
     render() {
         return <div>
-            <div class="form-group">
+            <div className="form-group">
                 <TextInput
                     id="firstName"
                     label="First Name"
@@ -63,18 +63,18 @@ export class EditNameStateless extends React.Component {
                     value={this.props.firstName}
                     onChange={this.props.onFirstNameEdit} />
             </div>
-            <div class="form-group">
+            <div className="form-group">
                 <TextInput
                     id="lastName"
                     label="Last Name"
                     placeholder="Enter Last Name"
                     value={this.props.lastName}
                     onChange={this.props.onLastNameEdit} />
-                <small class="form-text text-white">Changes to your name will not be seen until you published them to the store.</small>
+                <small className="form-text text-white">Changes to your name will not be seen until you published them to the store.</small>
             </div>
             <button
                 type="submit"
-                class="btn btn-primary"
+                className="btn btn-primary"
                 onClick={this.props.onSubmitMyNameEdit} >Submit Changes to Store</button>
         </div>;
     }

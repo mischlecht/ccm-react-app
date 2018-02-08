@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import If from '../../shared/components/if';
 
-export default class TextInput extends React.Component {
+export default class ZipCodeInput extends React.Component {
     constructor(props){
         super(props);
 
@@ -14,7 +14,8 @@ export default class TextInput extends React.Component {
         let value = this.props.value,
             id = this.props.id,
             label = this.props.label,
-            placeholder = this.props.placeholder;
+            placeholder = this.props.placeholder,
+            className = this.props.isValid ? "form-control is-valid" : "form-control";
             
         return <div>
             <If condition={label != null}>
@@ -23,8 +24,9 @@ export default class TextInput extends React.Component {
             <input
                 type='text'
                 id={id}
-                className="form-control"
+                className={className}
                 value={value}
+                maxLength="5"
                 placeholder={placeholder}
                 onChange={this.handleChange} />
         </div>;
@@ -36,9 +38,10 @@ export default class TextInput extends React.Component {
     }
 };
 
-TextInput.propTypes = {
+ZipCodeInput.propTypes = {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
+    isValid: PropTypes.bool.isRequired,
 
     id: PropTypes.string,
     label: PropTypes.string,

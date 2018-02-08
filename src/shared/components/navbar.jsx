@@ -6,15 +6,18 @@ export default class Navbar extends Component {
   render() {
     return (
         <div id="navbar-main">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand text-white" href="/">CCM React App</a>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <Link class="nav-link text-white" to="/">Home</Link>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a className="navbar-brand text-white" href="/">CCM React App</a>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <Link className="nav-link text-white" to="/">Home</Link>
                         </li>
-                        <li class="nav-item">
-                            <Link class="nav-link text-white" to="/about">About</Link>
+                        <li className="nav-item">
+                            <Link className="nav-link text-white" to="/provider">Provider</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link text-white" to="/about">About</Link>
                         </li>
                     </ul>
                 </div>
