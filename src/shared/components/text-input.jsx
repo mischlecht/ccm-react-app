@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import If from '../../shared/components/if';
 
-export default class TextInput extends React.Component {
+export default class TextInput extends Component {
     constructor(props){
         super(props);
 

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { store } from '../store/store';
 import ProviderPage from './components/provider-page.jsx';
 
-export default class ProviderController extends React.Component {
+export default class ProviderController extends Component {
     constructor(props){
         super(props);
         

@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 
 import ZipCodeInput from '../../shared/components/zip-code-input';
 import * as ProviderActions from '../provider.actions';
 
-export default class ProviderSearchStateful extends React.Component {
+export default class ProviderSearchStateful extends Component {
     constructor(props){
         super(props);
 
         this.state = {
             searchParams: Immutable.fromJS({
-                zipCode: '',
+                zipCode: '5318',
                 providerType: '',
             }),
             zipCodeIsValid: false,
@@ -70,10 +70,10 @@ export default class ProviderSearchStateful extends React.Component {
 ProviderSearchStateful.propTypes = {
 };
 
-export class ProviderSearchStateless extends React.Component {
+export class ProviderSearchStateless extends Component {
     render() {
         return <div>
-            <div className="col-md-4 mb-3">
+            <div className="container">
                 <ZipCodeInput
                     id="zipCode"
                     label="Zip Code"
@@ -85,7 +85,9 @@ export class ProviderSearchStateless extends React.Component {
                     onChange={this.props.onZipCodeEdit} />
             </div>
 
-            <div className="col-md-4 mb-3">
+            <br/>
+
+            <div className="container">
                 <label htmlFor="providerType">Provider Type</label>
                 <br/>
                 <select
@@ -100,12 +102,13 @@ export class ProviderSearchStateless extends React.Component {
                 </select>
             </div>
 
+            <br/>
             
-            <div className="col-md-4 mb-3">
+            <div className="container">
                 <button
                     disabled={!this.props.zipCodeIsValid || !this.props.providerTypeIsValid}
                     type="submit"
-                    className="btn btn-light"
+                    className="btn btn-secondary"
                     onClick={this.props.onSubmitSearch} >Search</button>
             </div>
         </div>;

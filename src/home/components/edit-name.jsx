@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 
 import * as HomeActions from '../home.actions';
 import TextInput from '../../shared/components/text-input.jsx';
 
-export default class EditNameStateful extends React.Component {
+export default class EditNameStateful extends Component {
     constructor(props){
         super(props);
 
@@ -52,7 +52,7 @@ EditNameStateful.propTypes = {
   myName: PropTypes.object.isRequired
 };
 
-export class EditNameStateless extends React.Component {
+export class EditNameStateless extends Component {
     render() {
         return <div>
             <div className="form-group">

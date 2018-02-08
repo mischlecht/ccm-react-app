@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 // Since this component is simple and static, there's no parent container for it.
-export default class AboutPage extends React.Component {
+export default class AboutPage extends Component {
     render() {
         return <div className="container bg-secondary text-light">
             <div className="container-fluid text-center">

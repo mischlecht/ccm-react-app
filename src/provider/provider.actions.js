@@ -6,7 +6,7 @@ export function SearchProviders (searchParams) {
         providerType = searchParams.get('providerType');
 
     const providerApiUrl = `https://provider-api.ccmnpe.com/search?zip=${zipCode}&providerType=${providerType}`;
-    let providerResults = [];
+    let searchResults = [];
 
     const xhr = new XMLHttpRequest();
     xhr.open('GET', providerApiUrl, true);
@@ -15,19 +15,20 @@ export function SearchProviders (searchParams) {
             if (xhr.status === 200) {
                 const results = JSON.parse(xhr.response).results;
                 if (results) {
-                    providerResults = results;
+                    searchResults = results;
                 }
-                FetchProvidersSuccess(providerResults);
+                FetchProvidersSuccess(searchResults, providerType);
             }
         } 
     };
     xhr.send();
 }
 
-function FetchProvidersSuccess(providerResults) {
+function FetchProvidersSuccess(searchResults, providerType) {
     const action = {
         type: ActionTypes.GOT_PROVIDERS,
-        providerResults
+        searchResults,
+        providerType
     };
 
     store.dispatch(action);

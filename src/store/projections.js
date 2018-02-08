@@ -2,25 +2,51 @@
 import * as Immutable from 'immutable';
 import * as ProviderModels from '../provider/constants/provider.models';
 
-export function projectProviderResultsToObject(providerResults){
-    let projectedProviderResults = Immutable.List();
+export function projectFacilityResultsToObjects(facilityResults){
+    let projectedFacilityResults = Immutable.List();
 
-    providerResults.forEach(function(provider) {
-        projectedProviderResults = projectedProviderResults.push(new ProviderModels.Provider({
-            address_line_1: provider.address_line_1,
-            address_line_2: provider.address_line_2,
-            city: provider.city,
-            distance: provider.distance,
-            facilityName: provider.facilityName,
-            facilityType: provider.facilityType,
-            facility_provider_id: provider.facility_provider_id,
-            id: provider.id,
-            phone: provider.phone,
-            state: provider.state,
-            type: provider.type,
-            zip: provider.zip
+    facilityResults.forEach(function(facility) {
+        projectedFacilityResults = projectedFacilityResults.push(new ProviderModels.Facility({
+            address_line_1: facility.address_line_1,
+            address_line_2: facility.address_line_2,
+            city: facility.city,
+            distance: facility.distance,
+            facilityName: facility.facilityName,
+            facilityType: facility.facilityType,
+            facility_provider_id: facility.facility_provider_id,
+            id: facility.id,
+            phone: facility.phone,
+            state: facility.state,
+            type: facility.type,
+            zip: facility.zip
         }));
     });
 
-    return projectedProviderResults;
+    return projectedFacilityResults;
+}
+
+export function projectDoctorResultsToObject(doctorResults){
+    let projectedDoctorResults = Immutable.List();
+
+    doctorResults.forEach(function(doctor) {
+        projectedDoctorResults = projectedDoctorResults.push(new ProviderModels.Doctor({
+            addressLine1: doctor.address_line_1,
+            addressLine2: doctor.address_line_2,
+            city: doctor.city,
+            degree: doctor.degree,
+            distance: doctor.distance,
+            first: doctor.first,
+            gender: doctor.gender,
+            id: doctor.id,
+            last: doctor.last,
+            phone: doctor.phone,
+            providerId: doctor.provider_id,
+            specialty: doctor.specialty,
+            state: doctor.state,
+            type: doctor.type,
+            zip: doctor.zip
+        }));
+    });
+
+    return projectedDoctorResults;
 }

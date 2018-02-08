@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class If extends React.Component {
+export default class If extends Component {
     render() {
         if(this.props.condition) {
             return this.props.children;

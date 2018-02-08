@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import EditName from './edit-name.jsx';
 
-export default class HomePage extends React.Component {
+export default class HomePage extends Component {
     render() {
         const myName = this.props.homeState.get('myName');
         const firstName = myName.get('firstName');
         const lastName = myName.get('lastName');
         
-        return <div className="container bg-secondary text-light">
+        return <div className="container">
             <div className="container-fluid text-center">
                 <h2>CCM React App</h2>
             </div>

@@ -11,7 +11,7 @@ import AboutPage from '../about/components/about';
 export default class AppBody extends Component {
   render() {
     return (
-      <div className="container app-body bg-secondary">
+      <div className="container">
         <Route exact path="/" component={HomeController}/>
         <Route exact path="/provider" component={ProviderController}/>
         <Route path="/about" component={AboutPage}/>

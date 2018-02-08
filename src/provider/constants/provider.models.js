@@ -5,6 +5,11 @@ export const SearchParams = Immutable.Record({
     providerType: ''
 });
 
+export const ProviderSearchResults = Immutable.Record({
+    providerType: '',
+    providers: Immutable.List()
+});
+
 export const FilterOptions = Immutable.Record({
     distance: '',
     facilityName: '',
@@ -15,14 +20,32 @@ export const FilterOptions = Immutable.Record({
     gender: ''
 });
 
-export const Provider = Immutable.Record({
-    address_line_1: '',
-    address_line_2: '',
+export const Doctor = Immutable.Record({
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    degree: '',
+    distance: '',
+    first: '',
+    gender: '',
+    id: '',
+    last: '',
+    phone: '',
+    providerId: '',
+    specialty: '',
+    state: '',
+    type: '',
+    zip: ''
+})
+
+export const Facility = Immutable.Record({
+    addressLine1: '',
+    addressLine2: '',
     city: '',
     distance: '',
     facilityName: '',
     facilityType: '',
-    facility_provider_id: '',
+    facilityProviderId: '',
     id: '',
     phone: '',
     state: '',
@@ -32,6 +55,5 @@ export const Provider = Immutable.Record({
 
 export const InitialState = Immutable.fromJS({
     filterOptions: new FilterOptions(),
-    providerResults: Immutable.List(),
-    filteredResults: Immutable.List()
+    providerSearchResults: new ProviderSearchResults(),
 });

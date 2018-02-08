@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { store } from '../store/store';
 import HomePage from './components/home-page.jsx';
 
-export default class HomeController extends React.Component {
+export default class HomeController extends Component {
     constructor(props){
         super(props);
         
