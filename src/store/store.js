@@ -17,6 +17,8 @@ function app(previous = appInitialState, action) {
             return ProviderReducers.setProviderResults(previous, action);
         case ActionTypes.CLEAR_PROVIDERS:
             return ProviderReducers.clearProviders(previous, action);
+        case ActionTypes.FILTER_FACILITIES:
+            return ProviderReducers.filterFacilities(previous, action);
 
         /** Default **/
         default:

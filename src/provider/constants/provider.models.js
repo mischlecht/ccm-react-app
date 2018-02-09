@@ -1,6 +1,4 @@
 import * as Immutable from 'immutable';
-import * as FacilityUtils from '../../shared/constants/facility-utils';
-import * as SpecialtyUtils from '../../shared/constants/specialty-utils';
 
 /** Initial State */
 export const ProviderSearchResults = Immutable.Record({
@@ -10,17 +8,17 @@ export const ProviderSearchResults = Immutable.Record({
 });
 
 export const DoctorFilters = Immutable.Record({
-    distance: Immutable.List([5, 10, 15, 20, 50, 100]),
+    distance: 0,
     first: '',
     last: '',
-    specialty: Immutable.List(),
-    gender: Immutable.List()
+    specialty: '',
+    gender: ''
 });
 
 export const FacilityFilters = Immutable.Record({
-    distance: Immutable.List([5, 10, 15, 20, 50, 100]),
+    distance: 0,
     facilityName: '',
-    facilityType: Immutable.List()
+    facilityType: null
 });
 
 export const Filters = Immutable.Record({
@@ -28,15 +26,10 @@ export const Filters = Immutable.Record({
     facilityFilters: new FacilityFilters()
 })
 
-// Static options used to filter providers
-export const FilterOptions = Immutable.Record({
-    specialities: SpecialtyUtils.populateSpecialtyTypes(),
-    facilityTypes: FacilityUtils.populateFacilityTypes()
-});
-
+/** Static options used to filter providers */
 export const InitialState = Immutable.fromJS({
-    filterOptions: new FilterOptions(),
-    providerSearchResults: new ProviderSearchResults(),
+    filters: new Filters(),
+    providerSearchResults: new ProviderSearchResults()
 });
 
 /** Models */

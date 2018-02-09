@@ -7,7 +7,7 @@ export default class If extends Component {
             return this.props.children;
         }
 
-        return <div></div>;
+        return <span/>;
     }
 };
 

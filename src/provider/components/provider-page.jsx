@@ -13,17 +13,18 @@ export default class ProviderPage extends Component {
         // const filterOptions = this.props.providerState.get('filterOptions'),
         const providerSearchResults = this.props.providerState.get('providerSearchResults'),
             providerType = providerSearchResults.get('providerType'),
-            filterOptions = this.props.providerState.get('filterOptions');
+            filters = this.props.providerState.get('filters'),
+            providerTypeSelected = ['doctor', 'facility'].includes(providerType);
         
         return <div>
             <PageTitle title="Provider Search" />
             <div>
-                <div id="search-filter-container">
+                <div className={providerTypeSelected ? "search-filter-container" : "search-container"}>
                     <ProviderSearch />
                     {/* Add Filter Component */}
                     <ProviderFilter
-                        providerType={providerType}
-                        filterOptions={filterOptions} />
+                        filters={filters}
+                        providerType={providerType} />
                 </div>
 
                 <div id="provider-results-container">
@@ -39,7 +40,7 @@ export default class ProviderPage extends Component {
 
 ProviderPage.propTypes = {
     providerState: ImmutablePropTypes.contains({
-        filterOptions: ImmutablePropTypes.recordOf(Models.FilterOptions),
+        filters: ImmutablePropTypes.recordOf(Models.Filters),
         providerSearchResults: ImmutablePropTypes.recordOf(Models.ProviderSearchResults)
     }),
 }

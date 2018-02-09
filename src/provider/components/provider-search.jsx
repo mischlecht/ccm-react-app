@@ -37,8 +37,7 @@ export default class ProviderSearchStateful extends Component {
             zipCodeIsValid={zipCodeIsValid}
             providerTypeIsValid={providerTypeIsValid}
             onZipCodeEdit={val => this.updateZipCodeParam(val)}
-            onProviderTypeChange={val => this.updateProviderTypeParam(val)}
-            onSubmitSearch={this.handleSubmitSearch} />
+            onProviderTypeChange={val => this.updateProviderTypeParam(val)}  />
     }
 
     updateZipCodeParam(zipCode) {
@@ -82,7 +81,7 @@ export class ProviderSearchStateless extends Component {
     render() {
         const selectClassName = this.props.providerTypeIsValid ? "form-control is-valid" : "form-control"
 
-        return <div className="row search-container">
+        return <div className="row">
             <div className="col-6">
                 <ZipCodeInput
                     id="zipCode"
@@ -116,6 +115,5 @@ ProviderSearchStateless.propTypes = {
   zipCodeIsValid: PropTypes.bool.isRequired,
   providerTypeIsValid: PropTypes.bool.isRequired,
   onZipCodeEdit: PropTypes.func.isRequired,
-  onProviderTypeChange: PropTypes.func.isRequired,
-  onSubmitSearch: PropTypes.func.isRequired,
+  onProviderTypeChange: PropTypes.func.isRequired
 };

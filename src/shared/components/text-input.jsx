@@ -13,34 +13,58 @@ export default class TextInput extends Component {
     render() {
         let value = this.props.value,
             id = this.props.id,
+            className = this.props.className,
             label = this.props.label,
             placeholder = this.props.placeholder;
             
-        return <div>
-            <If condition={label != null}>
-                <label htmlFor={id}>{label}</label>
-            </If>
-            <input
-                type='text'
-                id={id}
-                className="form-control"
-                value={value}
-                placeholder={placeholder}
-                onChange={this.handleChange} />
-        </div>;
+        if(this.props.onChange) {
+            return <div>
+                <If condition={label != null}>
+                    <label htmlFor={id}>{label}</label>
+                </If>
+                <input
+                    type='text'
+                    id={id}
+                    className={className}
+                    value={value}
+                    placeholder={placeholder}
+                    onChange={this.handleChange} />
+            </div>;
+        }
+        else {
+            return <div>
+                <If condition={label != null}>
+                    <label htmlFor={id}>{label}</label>
+                </If>
+                <input
+                    type='text'
+                    id={id}
+                    className={className}
+                    value={value}
+                    placeholder={placeholder}
+                    onBlur={this.handleBlur} />
+            </div>;
+        }
     }
 
     handleChange(event) {
         const val = event.target.value;
         this.props.onChange(val);
     }
+
+    handleBlur(event) {
+        const val = event.target.value;
+        this.props.onBlur(val);
+    }
 };
 
 TextInput.propTypes = {
     value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
+    onBlur: PropTypes.func,
 
     id: PropTypes.string,
+    className: PropTypes.string,
     label: PropTypes.string,
     placeholder: PropTypes.string
 }

@@ -1,20 +1,26 @@
 /** Search + Filter Container **/
-#search-filter-container {
-  border-radius: 15px;
-  margin-bottom: 20px;
-  background: #e8e8e8;
-}
-
-/** Zip + Provider Type Search Container **/
 .search-container {
+  border-radius: 15px;
+  background: #e8e8e8;
   padding: 25px 15px 25px 15px;
 }
 
+.search-filter-container {
+  border-radius: 15px;
+  background: #e8e8e8;
+  padding: 25px 15px 25px 15px;
+}
+
+/** Zip + Provider Type Search Container **/
 #search-button {
   width: 100%;
 }
 
 /** Filter container sections for  **/
+.filter-container {
+  padding: 5px 15px 10px 15px;
+}
+
 .filter-container {
   padding: 5px 15px 10px 15px;
 }

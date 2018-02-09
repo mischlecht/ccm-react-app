@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ImmutabelPropTypes from 'react-immutable-proptypes';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import Immutable from 'immutable';
+
+import DoctorFilter from './doctor-filter';
+import FacilityFilter from './facility-filter';
 import * as Models from '../constants/provider.models';
+import * as SpecialtyUtils from '../../shared/utils/specialty-utils';
+import * as FacilityUtils from '../../shared/utils/facility-utils';
 // import * as ProviderActions from '../provider.actions';
 
 export default class ProviderFilter extends Component {
@@ -9,31 +15,55 @@ export default class ProviderFilter extends Component {
         super(props);
 
         this.state = {
-            filterOptions: new Models.FilterOptions()
+            specialties: Immutable.List(),
+            facilityTypes: Immutable.List()
         };
 
-        this.handleFilterChange = this.handleFilterChange.bind(this);
+        this.handleFacilityFilterChange = this.handleFacilityFilterChange.bind(this);
+        this.handleDoctorFilterChange = this.handleDoctorFilterChange.bind(this);
+    }
+
+    componentDidMount() {
+        SpecialtyUtils.populateSpecialtyTypes(specialties => {this.setState({specialties})});
+        FacilityUtils.populateFacilityTypes(facilityTypes => {this.setState({facilityTypes})});
+    }
+
+    setFacilityTypes(facilityTypes) {
+        this.setState({facilityTypes});
     }
 
     render() {
         const providerType = this.props.providerType,
-            doctorFilters = this.props.filterOptions.get('doctorFilters'),
-            facilityFilters = this.props.filterOptions.get('facilityFilters');
+            doctorFilters = this.props.filters.get('doctorFilters'),
+            facilityFilters = this.props.filters.get('doctorFilters'),
+            specialties = this.state.specialties,
+            facilityTypes = this.state.facilityTypes;
 
         if (providerType === 'doctor') {
             return <div className="filter-container">
-                <DoctorFilterStateful doctorFilters={doctorFilters} />
+                <hr/>
+                <DoctorFilter
+                    doctorFilters={doctorFilters}
+                    specialties={specialties} />
             </div>;
         } else if (providerType === 'facility') {
             return <div className="filter-container">
-                <FacilityFilterStateful facilityFilters={facilityFilters} />
+                <hr/>
+                <FacilityFilter
+                    facilityFilters={facilityFilters}
+                    facilityTypes={facilityTypes} />
             </div>;
         } else {
             return <div/>;
         }
     }
 
-    handleFilterChange() {
+    handleFacilityFilterChange() {
+        // handle facility filter change
+        // handle doctor filter change
+    }
+
+    handleDoctorFilterChange() {
         // handle facility filter change
         // handle doctor filter change
     }
@@ -41,34 +71,8 @@ export default class ProviderFilter extends Component {
 
 ProviderFilter.propTypes = {
     providerType: PropTypes.string,
-    filterOptions: ImmutabelPropTypes.contains({
-        doctorFilters: ImmutabelPropTypes.recordOf(Models.DoctorFilters),
-        facilityFilters: ImmutabelPropTypes.recordOf(Models.FacilityFilters)
+    filters: ImmutablePropTypes.contains({
+        doctorFilters: ImmutablePropTypes.recordOf(Models.DoctorFilters),
+        facilityFilters: ImmutablePropTypes.recordOf(Models.FacilityFilters)
     })
-};
-
-export class DoctorFilterStateful extends Component {
-    render() {
-        return <div className="text-center">
-            <hr/>
-            <p>Doctor Filter</p>
-        </div>;
-    }
-}
-
-DoctorFilterStateful.propTypes = {
-    doctorFilters: ImmutabelPropTypes.recordOf(Models.DoctorFilters)
-};
-
-export class FacilityFilterStateful extends Component {
-    render() {
-        return <div className="text-center">
-            <hr/>
-            <p>Facility Filter</p>
-        </div>;
-    }
-}
-
-FacilityFilterStateful.propTypes = {
-    facilityFilters: ImmutabelPropTypes.recordOf(Models.FacilityFilters)
 };
