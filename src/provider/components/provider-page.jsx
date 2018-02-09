@@ -6,28 +6,27 @@ import * as Models from '../constants/provider.models';
 import PageTitle from '../../shared/components/page-title';
 import ProviderSearch from './provider-search';
 import ProviderResults from './provider-results';
-import If from '../../shared/components/if';
+import ProviderFilter from './provider-filter';
 
 export default class ProviderPage extends Component {
     render() {
         // const filterOptions = this.props.providerState.get('filterOptions'),
         const providerSearchResults = this.props.providerState.get('providerSearchResults'),
-            providerResults = providerSearchResults.get('providers');
+            providerType = providerSearchResults.get('providerType'),
+            filterOptions = this.props.providerState.get('filterOptions');
         
-        return <div className="container">
+        return <div>
             <PageTitle title="Provider Search" />
-            <div className="container-fluid row">
-                <div id="provider-search-filter-container" className="col-3 divider-right bg-light">
+            <div>
+                <div id="search-filter-container">
                     <ProviderSearch />
                     {/* Add Filter Component */}
-                    <br/>
-
-                    <If condition={providerResults.size > 0}>
-                        <p> show filter options </p>
-                    </If>
+                    <ProviderFilter
+                        providerType={providerType}
+                        filterOptions={filterOptions} />
                 </div>
 
-                <div className="col-9">
+                <div id="provider-results-container">
                     {/* Add Results Component */}
                     <ProviderResults
                         providerSearchResults={providerSearchResults} />

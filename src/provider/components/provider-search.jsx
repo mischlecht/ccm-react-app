@@ -21,7 +21,7 @@ export default class ProviderSearchStateful extends Component {
 
         this.updateZipCodeParam = this.updateZipCodeParam.bind(this);
         this.updateProviderTypeParam = this.updateProviderTypeParam.bind(this);
-        this.handleSubmitSearch = this.handleSubmitSearch.bind(this);
+        this.searchOrClearResults = this.searchOrClearResults.bind(this);
     }
 
     render() {
@@ -51,7 +51,7 @@ export default class ProviderSearchStateful extends Component {
             zipCodeIsValid: zipCodeIsValid
         });
 
-        this.resetProviderSearchResults();
+        this.searchOrClearResults(zipCodeIsValid, this.state.providerTypeIsValid, newSearchParams);
     }
 
     updateProviderTypeParam(providerType) {
@@ -63,15 +63,15 @@ export default class ProviderSearchStateful extends Component {
             providerTypeIsValid: providerTypeIsValid
         });
 
-        this.resetProviderSearchResults();
+        this.searchOrClearResults(this.state.zipCodeIsValid, providerTypeIsValid, newSearchParams);
     }
 
-    resetProviderSearchResults() {
-        ProviderActions.ClearSearchResults();
-    }
-
-    handleSubmitSearch() {
-        ProviderActions.SearchProviders(this.state.searchParams);
+    searchOrClearResults(zipCodeIsValid, providerTypeIsValid, searchParams) {
+        if(zipCodeIsValid && providerTypeIsValid) {
+            ProviderActions.SearchProviders(searchParams);
+        } else {
+            ProviderActions.ClearSearchResults();
+        }
     }
 };
 
@@ -80,12 +80,13 @@ ProviderSearchStateful.propTypes = {
 
 export class ProviderSearchStateless extends Component {
     render() {
-        return <div>
-            <div className="container">
+        const selectClassName = this.props.providerTypeIsValid ? "form-control is-valid" : "form-control"
+
+        return <div className="row search-container">
+            <div className="col-6">
                 <ZipCodeInput
                     id="zipCode"
-                    label="Zip Code"
-                    placeholder="Enter Zip Code"
+                    placeholder="Zip Code"
                     className="form-control"
                     maxlength="5"
                     isValid={this.props.zipCodeIsValid}
@@ -95,12 +96,10 @@ export class ProviderSearchStateless extends Component {
 
             <br/>
 
-            <div className="container">
-                <label htmlFor="providerType">Provider Type</label>
-                <br/>
+            <div className="col-6">
                 <select
                     value={this.props.providerType}
-                    className={this.props.providerTypeIsValid ? "custom-select is-valid" : "custom-select"}
+                    className={selectClassName}
                     id="providerType"
                     onChange={(event) => this.props.onProviderTypeChange(event.target.value)}>
 
@@ -108,16 +107,6 @@ export class ProviderSearchStateless extends Component {
                     <option value="doctor">Doctor</option>
                     <option value="facility">Facility</option>
                 </select>
-            </div>
-
-            <br/>
-            
-            <div className="container">
-                <button
-                    disabled={!this.props.zipCodeIsValid || !this.props.providerTypeIsValid}
-                    type="submit"
-                    className="btn btn-secondary"
-                    onClick={this.props.onSubmitSearch} >Search</button>
             </div>
         </div>;
     }

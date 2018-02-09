@@ -1,21 +1,45 @@
-#provider-search-filter-container {
+/** Search + Filter Container **/
+#search-filter-container {
   border-radius: 15px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  box-shadow: 1px 1px 1px 1px #ccc;
+  margin-bottom: 20px;
+  background: #e8e8e8;
 }
 
-#provider-results {
-  display: inline;
+/** Zip + Provider Type Search Container **/
+.search-container {
+  padding: 25px 15px 0px 15px;
+}
+
+#search-button {
+  width: 100%;
+}
+
+/** Filter container sections for  **/
+.filter-container {
+  padding: 5px 15px 10px 15px;
+}
+
+/** Provider Search Results **/
+.provider-results {
   align-content: center;
 }
 
-.doctor-detail {
-  border-radius: 5px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  padding: 10px 10px 10px 15px;
-  min-width: 200px;
+.provider-details {
+  border-radius: 10px;
   box-shadow: 1px 1px 1px 1px #ccc;
   cursor: pointer;
+}
+
+.doctor-details {
+  margin: 15px;
+  width: 330px;
+  min-height: 250px;
+  float: left;
+}
+
+.facility-details {
+  margin: 15px;
+  width: 330px;
+  min-height: 250px;
+  float: left;
 }

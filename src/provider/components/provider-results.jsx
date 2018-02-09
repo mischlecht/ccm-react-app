@@ -8,42 +8,34 @@ import If from '../../shared/components/if';
 export default class ProviderResults extends Component {
     render() {
         const providerSearchResults = this.props.providerSearchResults,
-            providers = providerSearchResults.get('providers');
+            providersFiltered = providerSearchResults.get('providersFiltered');
         
-        return <div className="container">
-            <div className="text-center">
-                <p>Provider Results</p>
-            </div>
-
-            <div className="container provider-results">
-                <If condition={providers.size > 0} >
-                    <div className="row">
-                        {this.renderProviderResults(providers)}
-                    </div>
-                </If>
-            </div>
+        return <div className="provider-results">
+            <If condition={providersFiltered.size > 0} >
+                {this.renderProviderResults(providersFiltered)}
+            </If>
         </div>
     }
 
-    renderProviderResults(providers) {
+    renderProviderResults(providersFiltered) {
         if(this.props.providerSearchResults.get('providerType') === 'doctor') {
-            return providers.map(doctor => this.renderDoctors(doctor));
+            return providersFiltered.map(doctor => this.renderDoctors(doctor));
         } else {
-            return providers.map(facility => this.renderFacilities(facility));
+            return providersFiltered.map(facility => this.renderFacilities(facility));
         }
         
     }
 
     renderDoctors(doctor) {
         return <DoctorDetails 
-            key={doctor.get('providerId')}
-            doctor={doctor} />
+            key={doctor.get('id')}
+            doctor={doctor} />;
     }
 
     renderFacilities(facility) {
         return <FacilityDetails 
-            key={facility.get('facilityProviderId')}
-            facility={facility} />
+            key={facility.get('id')}
+            facility={facility} />;
     }
 };
 

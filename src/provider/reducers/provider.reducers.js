@@ -15,7 +15,8 @@ export function setProviderResults (previous, action) {
 
     const providerSearchResults = new ProviderSearchResults({
         providerType,
-        providers: projectedProviderResults
+        providersRaw: projectedProviderResults,
+        providersFiltered: projectedProviderResults
     });
 
     newState = newState.setIn(['providerState', 'providerSearchResults'], providerSearchResults)

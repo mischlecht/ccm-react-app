@@ -7,8 +7,8 @@ export function projectFacilityResultsToObjects(facilityResults){
 
     facilityResults.forEach(function(facility) {
         projectedFacilityResults = projectedFacilityResults.push(new ProviderModels.Facility({
-            address_line_1: facility.address_line_1,
-            address_line_2: facility.address_line_2,
+            addressLine1: facility.address_line_1,
+            addressLine2: facility.address_line_2,
             city: facility.city,
             distance: facility.distance,
             facilityName: facility.facilityName,

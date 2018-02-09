@@ -9,6 +9,7 @@
     "popper.js": "1.12.9",
     "prop-types": "15.6.0",
     "react": "16.2.0",
+    "react-checkbox-group": "^3.3.4",
     "react-dom": "16.2.0",
     "react-immutable-proptypes": "2.1.0",
     "react-redux": "5.0.6",
