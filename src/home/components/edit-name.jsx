@@ -45,7 +45,6 @@ export default class EditNameStateful extends Component {
     handleSubmitMyNameEdit() {
         HomeActions.UpdateName(this.state.myName);
     }
-
 };
 
 EditNameStateful.propTypes = {
@@ -70,7 +69,7 @@ export class EditNameStateless extends Component {
                     placeholder="Enter Last Name"
                     value={this.props.lastName}
                     onChange={this.props.onLastNameEdit} />
-                <small className="form-text text-white">Changes to your name will not be seen until you published them to the store.</small>
+                <small className="form-text text-secondary">Changes to your name will not be seen until you published them to the store.</small>
             </div>
             <button
                 type="submit"
