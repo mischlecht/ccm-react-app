@@ -94,8 +94,6 @@ export class ProviderSearchStateless extends Component {
                     onChange={this.props.onZipCodeEdit} />
             </div>
 
-            <br/>
-
             <div className="col-6">
                 <select
                     value={this.props.providerType}
