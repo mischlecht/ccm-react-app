@@ -11,7 +11,7 @@ export default class ProviderSearchStateful extends Component {
 
         this.state = {
             searchParams: Immutable.fromJS({
-                zipCode: '5318',
+                zipCode: '',
                 providerType: '',
             }),
             zipCodeIsValid: false,
