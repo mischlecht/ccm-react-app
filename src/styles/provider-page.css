@@ -27,6 +27,14 @@
 .provider-details {
   border-radius: 10px;
   box-shadow: 1px 1px 1px 1px #ccc;
+}
+
+.provider-details:hover {
+  -webkit-transform: scale(1.02);
+  -moz-transform: scale(1.02);
+  -ms-transform: scale(1.02);
+  -o-transform: scale(1.02);
+  transform: scale(1.02);
   cursor: pointer;
 }
 
