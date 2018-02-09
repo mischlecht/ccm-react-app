@@ -62,7 +62,7 @@ DoctorFilterStateful.propTypes = {
 
 export class FacilityFilterStateful extends Component {
     render() {
-        return <div className="row text-center">
+        return <div className="text-center">
             <hr/>
             <p>Facility Filter</p>
         </div>;
