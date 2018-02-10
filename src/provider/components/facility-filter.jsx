@@ -10,41 +10,37 @@ export default class FacilityFilterStateful extends Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            facilityFilters: new FacilityFilters()
-        };
-
         this.handleFacilityFiltersChange = this.handleFacilityFiltersChange.bind(this);
         this.filterFacilities = this.filterFacilities.bind(this);
+        this.handleResetFilters = this.handleResetFilters.bind(this);
     }
 
     render() {
-        const facilityFilters = this.state.facilityFilters,
-            distance = facilityFilters.get('distance'),
+        const facilityFilters = this.props.facilityFilters,
             facilityName = facilityFilters.get('facilityName'),
             facilityType = facilityFilters.get('facilityType'),
             facilityTypes = this.props.facilityTypes;
 
         return <FacilityFilterStateless
-            distance={distance}
             facilityName={facilityName}
             facilityType={facilityType}
             facilityTypes={facilityTypes}
             updateFacilityFilters={this.handleFacilityFiltersChange}
-            filterFacilities={this.filterFacilities} />;
+            resetFilters={this.handleResetFilters} />;
     }
 
     handleFacilityFiltersChange(param, val) {
-        const newFacilityFilters = this.state.facilityFilters.set(param, val);
+        const newFacilityFilters = this.props.facilityFilters.set(param, val);
 
-        this.setState({ 
-            facilityFilters: newFacilityFilters
-        }, this.filterFacilities(newFacilityFilters));
+        this.filterFacilities(newFacilityFilters);
     }
 
     filterFacilities(facilityFilters) {
-        // Call ProviderActions.filterfacilities
         ProviderActions.FilterFacilities(facilityFilters);
+    }
+
+    handleResetFilters() {
+        ProviderActions.ResetFacilityFilter();
     }
 };
 
@@ -56,19 +52,18 @@ FacilityFilterStateful.propTypes = {
 class FacilityFilterStateless extends Component {
     render() {
         const facilityNameClassName = this.props.facilityName === '' ? "form-control" : "form-control is-valid",
-            selectClassName = this.props.facilityType === null ? "form-control" : "form-control is-valid"
+            selectClassName = this.props.facilityType === '' ? "form-control" : "form-control is-valid"
 
         return <div className="row">
-            <div className="col">
+            <div className="col-5">
                 <TextInput
                     className={facilityNameClassName}
                     value={this.props.facilityName} 
                     placeholder={"Facility Name"}
-                    onChange={val => this.props.updateFacilityFilters('facilityName', val)}
-                    onBlur={this.props.filterFacilities}/>
+                    onChange={val => this.props.updateFacilityFilters('facilityName', val)} />
             </div>
            
-            <div className="col">
+            <div className="col-5">
                 <select
                     value={this.props.facilityType}
                     className={selectClassName}
@@ -76,13 +71,15 @@ class FacilityFilterStateless extends Component {
                     id="facilityType"
                     onChange={(event) => this.props.updateFacilityFilters('facilityType', event.target.value)}>
 
-                    <option defaultValue value={null}>Select Facility Type</option>
+                    <option defaultValue value=''>Select Facility Type</option>
                     {this.renderFacilityTypes()}
                 </select>
             </div>
 
-            <div className="col">
-                <input type="text" className="form-control" placeholder="Specialty" />
+            <div className="col-2">
+                <button
+                    className="form-control"
+                    onClick={this.props.resetFilters} >Reset</button>
             </div>
         </div>;
     }
@@ -99,10 +96,9 @@ class FacilityFilterStateless extends Component {
 }
 
 FacilityFilterStateless.propTypes = {
-    distance: PropTypes.number.isRequired,
     facilityName: PropTypes.string.isRequired,
     facilityType: PropTypes.string.isRequired,
     facilityTypes: ImmutabelPropTypes.list.isRequired,
     updateFacilityFilters: PropTypes.func.isRequired,
-    filterFacilities: PropTypes.func.isRequired
+    resetFilters: PropTypes.func.isRequired
 };

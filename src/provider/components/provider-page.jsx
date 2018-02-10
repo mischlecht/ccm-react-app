@@ -12,6 +12,7 @@ export default class ProviderPage extends Component {
     render() {
         // const filterOptions = this.props.providerState.get('filterOptions'),
         const providerSearchResults = this.props.providerState.get('providerSearchResults'),
+            staticData = this.props.providerState.get('staticData'),
             providerType = providerSearchResults.get('providerType'),
             filters = this.props.providerState.get('filters'),
             providerTypeSelected = ['doctor', 'facility'].includes(providerType);
@@ -24,6 +25,7 @@ export default class ProviderPage extends Component {
                     {/* Add Filter Component */}
                     <ProviderFilter
                         filters={filters}
+                        staticData={staticData}
                         providerType={providerType} />
                 </div>
 
@@ -41,6 +43,7 @@ export default class ProviderPage extends Component {
 ProviderPage.propTypes = {
     providerState: ImmutablePropTypes.contains({
         filters: ImmutablePropTypes.recordOf(Models.Filters),
-        providerSearchResults: ImmutablePropTypes.recordOf(Models.ProviderSearchResults)
+        providerSearchResults: ImmutablePropTypes.recordOf(Models.ProviderSearchResults),
+        staticData: ImmutablePropTypes.recordOf(Models.StaticData)
     }),
 }

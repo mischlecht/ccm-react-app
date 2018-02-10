@@ -1,5 +1,6 @@
 import * as Projections from '../../store/projections';
-import { ProviderSearchResults } from '../../provider/constants/provider.models';
+import { ProviderSearchResults, FacilityFilters } from '../../provider/constants/provider.models';
+import * as Paths from '../../shared/constants/provider-state-var-paths';
 
 export function setProviderResults (previous, action) {
     const { searchResults, providerType } = action;
@@ -19,13 +20,26 @@ export function setProviderResults (previous, action) {
         providersFiltered: projectedProviderResults
     });
 
-    newState = newState.setIn(['providerState', 'providerSearchResults'], providerSearchResults)
+    newState = newState.setIn(Paths.providerSearchResults, providerSearchResults)
+
+    // if (providerType === 'doctor') {
+    //     // filter out unused specialties type
+    // } else if (providerType === 'facility') {
+    //     // filter out unused facility types
+    //     newState = filterOutFacilityTypes(newState);
+    // }
 
     return newState;
 }
 
+// function filterOutFacilityTypes(previous) {
+//     const rawFacilityTypes = previous.getIn(['providerState', 'staticData', 'facilityTypes']);
+
+//     return previous;
+// }
+
 export function clearProviders (previous, action) {
-    return previous.setIn(['providerState', 'providerSearchResults'], new ProviderSearchResults());
+    return previous.setIn(Paths.providerSearchResults, new ProviderSearchResults());
 }
 
 /** Doctor Filter Reducers **/
@@ -43,13 +57,18 @@ export function filterFacilities(previous, action) {
     const { facilityFilters } = action,
         facilityName = facilityFilters.get('facilityName'),
         facilityType = facilityFilters.get('facilityType'),
-        unfilteredFacilities = previous.getIn(['providerState', 'providerSearchResults', 'providersRaw']);
+        unfilteredFacilities = previous.getIn(Paths.providersRaw);
     let filteredFacilities = unfilteredFacilities;
 
-    filteredFacilities = filterFacilitiesByFacilityName(unfilteredFacilities, facilityName);
-    // filteredFacilities = filterFacilitiesByFacilityType(unfilteredFacilities);
+    if (facilityName) {
+        filteredFacilities = filterFacilitiesByFacilityName(unfilteredFacilities, facilityName);
+    }
+    if(facilityType) {
+        filteredFacilities = filterFacilitiesByFacilityType(unfilteredFacilities, facilityType);
+    }
 
-    return previous.setIn(['providerState', 'providerSearchResults', 'providersFiltered'], filteredFacilities);
+    return previous.setIn(Paths.providersFiltered, filteredFacilities)
+                    .setIn(Paths.facilityFilters, facilityFilters);
 }
 
 // functional filter function
@@ -61,6 +80,28 @@ function filterFacilitiesByFacilityName(unfilteredFacilities, searchName) {
         return facilityNameLower.search(searchNameLower) !== -1;
     });
 }
+
 function filterFacilitiesByFacilityType(unfilteredFacilities, facilityType) {
-    return unfilteredFacilities.filter(facility => facility.get('facilityType').equals(facilityType));
+    return unfilteredFacilities.filter((facility) => {
+        return facility.get('facilityType') === facilityType;
+    });
+}
+
+export function resetFacilityFilters(previous, action) {
+    const providersRaw = previous.getIn(Paths.providersRaw);
+
+    return previous.setIn(Paths.providersFiltered, providersRaw).setIn(Paths.facilityFilters, new FacilityFilters());
+}
+
+/** Got Bootstrap Data */
+export function gotSpecialties(previous, action) {
+    const { specialties } = action;
+
+    return previous.setIn(Paths.staticSpecialties, specialties);
+}
+
+export function gotFacilityTypes(previous, action) {
+    const { facilityTypes } = action;
+
+    return previous.setIn(Paths.staticFacilityTypes, facilityTypes);
 }

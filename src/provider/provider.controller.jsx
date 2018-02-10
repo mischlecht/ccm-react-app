@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-
 import { store } from '../store/store';
 import ProviderPage from './components/provider-page.jsx';
+import * as ProviderActions from './provider.actions';
+import * as ProviderUtils from '../shared/utils/provider.utils';
 
 export default class ProviderController extends Component {
     constructor(props){
@@ -19,6 +20,7 @@ export default class ProviderController extends Component {
 
     componentDidMount(){
         store.subscribe(this.onStoreChange);
+        this.bootstrapStaticData();
     }
 
     render() {
@@ -36,5 +38,14 @@ export default class ProviderController extends Component {
     onStoreChange() {
         const newState = this.getProviderStateFromStore();
         this.setState({ providerState: newState });
+    }
+
+    bootstrapStaticData() {
+        ProviderUtils.populateSpecialties(specialties => {
+            ProviderActions.SaveSpecialties(specialties);
+        });
+        ProviderUtils.populateFacilityTypes(facilityTypes => {
+            ProviderActions.SaveFacilityTypes(facilityTypes);
+        });
     }
 };

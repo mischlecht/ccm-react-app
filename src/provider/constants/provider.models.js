@@ -16,19 +16,24 @@ export const DoctorFilters = Immutable.Record({
 });
 
 export const FacilityFilters = Immutable.Record({
-    distance: 0,
     facilityName: '',
-    facilityType: null
+    facilityType: ''
 });
 
 export const Filters = Immutable.Record({
     doctorFilters: new DoctorFilters(),
     facilityFilters: new FacilityFilters()
-})
+});
+
+export const StaticData = Immutable.Record({
+    specialties: Immutable.List(),
+    facilityTypes: Immutable.List()
+});
 
 /** Static options used to filter providers */
 export const InitialState = Immutable.fromJS({
     filters: new Filters(),
+    staticData: new StaticData(),
     providerSearchResults: new ProviderSearchResults()
 });
 

@@ -58,3 +58,30 @@ export function FilterFacilities(facilityFilters) {
 
     store.dispatch(action);
 }
+
+export function ResetFacilityFilter() {
+    const action = {
+        type: ActionTypes.RESET_FACILITY_FILTERS,
+    }
+
+    store.dispatch(action);
+}
+
+/** Bootstrap functions */
+export function SaveSpecialties(specialties) {
+    const action = {
+        type: ActionTypes.BOOTSTRAP_SPECIALTIES,
+        specialties
+    }
+
+    store.dispatch(action);
+}
+
+export function SaveFacilityTypes(facilityTypes) {
+    const action = {
+        type: ActionTypes.BOOTSTRAP_FACILITY_TYPES,
+        facilityTypes
+    }
+
+    store.dispatch(action);
+}
