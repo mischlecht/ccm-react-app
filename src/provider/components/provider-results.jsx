@@ -7,11 +7,6 @@ import FacilityDetails from './facility-details';
 import LoadingIcon from '../../shared/images/loading.gif';
 
 export default class ProviderResults extends Component {
-    componentWillUpdate() {
-        // console.log('Provider Results updating');
-        //https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif
-    }
-
     render() {
         const searchIsValid = this.props.searchIsValid,
             searchingForProviders = this.props.searchingForProviders,
