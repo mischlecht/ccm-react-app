@@ -36,6 +36,8 @@ export function buildListOfFilterParams(sourceList, paramName) {
         if (!filteredList.contains(immutableObject)) {
             filteredList = filteredList.push(immutableObject);
         }
+        
+        return null;
     });
 
     return filteredList;

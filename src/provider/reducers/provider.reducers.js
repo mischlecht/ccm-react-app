@@ -94,14 +94,6 @@ export function applyFilters(previous, action) {
 /*******************************/
 /** FUNCTIONAL GETTER REDUCERS */
 /*******************************/
-function getDoctorFilters(previous) {
-    return previous.getIn(Paths.doctorFilters);
-}
-
-function getFacilityFilters(previous) {
-    return previous.getIn(Paths.facilityFilters);
-}
-
 function getProviderType(previous) {
     const searchParams = previous.getIn(Paths.searchParams)
     return searchParams.get('providerType');
