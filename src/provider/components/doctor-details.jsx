@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Doctor } from '../constants/provider.models';
 import AddressDisplay from '../../shared/components/address-display';
+import If from '../../shared/components/if';
 
 export default class DoctorDetails extends Component {
     render() {
@@ -9,6 +10,7 @@ export default class DoctorDetails extends Component {
             lastName = doctor.get('last'),
             firstName = doctor.get('first'),
             degree = doctor.get('degree'),
+            distance = doctor.get('distance'),
             specialty = doctor.get('specialty'),
             addressLine1 = doctor.get('addressLine1'),
             addressLine2 = doctor.get('addressLine2'),
@@ -19,6 +21,9 @@ export default class DoctorDetails extends Component {
         return <div className="doctor-details provider-details card bg-light">
             <div className="card-header">
                 <h5 className="card-title">{lastName}, {firstName}, {degree}</h5>
+                <If condition={distance !== 0}>
+                    <p className="card-subtitle"><em>({distance} mi.)</em></p>
+                </If>
             </div>
             <div className="card-body">
                 <p className="card-text">{specialty}</p>

@@ -12,38 +12,43 @@ export default class ProviderFilter extends Component {
     }
 
     render() {
-        const providerType = this.props.providerType,
-            doctorFilters = this.props.filters.get('doctorFilters'),
+        const doctorFilters = this.props.filters.get('doctorFilters'),
             facilityFilters = this.props.filters.get('facilityFilters'),
-            specialties = this.props.staticData.get('specialties'),
-            facilityTypes = this.props.staticData.get('facilityTypes');
+            specialtiesFiltered = this.props.staticData.get('specialtiesFiltered'),
+            facilityTypesFiltered = this.props.staticData.get('facilityTypesFiltered');
 
-        if (providerType === 'doctor') {
-            return <div className="filter-container">
-                <hr/>
-                <DoctorFilter
-                    doctorFilters={doctorFilters}
-                    specialties={specialties} />
-            </div>;
-        } else if (providerType === 'facility') {
-            return <div className="filter-container">
-                <hr/>
-                <FacilityFilter
-                    facilityFilters={facilityFilters}
-                    facilityTypes={facilityTypes} />
-            </div>;
+        if(this.props.searchIsValid && this.props.hasSearchResults) {
+            switch(this.props.providerType) {
+                case 'doctor':
+                    return <div className="filter-container">
+                        <hr/>
+                        <DoctorFilter
+                            doctorFilters={doctorFilters}
+                            specialtiesFiltered={specialtiesFiltered} />
+                    </div>;
+                case 'facility':
+                    return <div className="filter-container">
+                        <hr/>
+                        <FacilityFilter
+                            facilityFilters={facilityFilters}
+                            facilityTypesFiltered={facilityTypesFiltered} />
+                    </div>;
+                default:
+                    return <div></div>;
+            }
         } else {
-            return <div/>;
+            return <div></div>;
         }
     }
 };
 
 ProviderFilter.propTypes = {
+    searchIsValid: PropTypes.bool.isRequired,
+    hasSearchResults: PropTypes.bool.isRequired,
     providerType: PropTypes.string.isRequired,
-    doctorFilters: ImmutablePropTypes.recordOf(Models.DoctorFilters),
-    facilityFilters: ImmutablePropTypes.recordOf(Models.FacilityFilters),
+    filters: ImmutablePropTypes.recordOf(Models.Filters),
     staticData: ImmutablePropTypes.contains({
-        specialties: ImmutablePropTypes.list.isRequired,
-        facilityTypes: ImmutablePropTypes.list.isRequired
+        specialtiesFiltered: ImmutablePropTypes.list.isRequired,
+        facilityTypesFiltered: ImmutablePropTypes.list.isRequired
     })
 };

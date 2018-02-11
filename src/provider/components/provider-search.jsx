@@ -1,119 +1,126 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import ZipCodeInput from '../../shared/components/zip-code-input';
+import { SearchParams } from '../constants/provider.models';
 import * as ProviderActions from '../provider.actions';
 
-export default class ProviderSearchStateful extends Component {
+export default class ProviderSearch extends Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            searchParams: Immutable.fromJS({
-                zipCode: '',
-                providerType: '',
-            }),
-            zipCodeIsValid: false,
-            providerTypeIsValid: false,
-            searchButtonEnabled: false
-        };
-
         this.updateZipCodeParam = this.updateZipCodeParam.bind(this);
         this.updateProviderTypeParam = this.updateProviderTypeParam.bind(this);
-        this.searchOrClearResults = this.searchOrClearResults.bind(this);
+        this.handleSearchClear = this.handleSearchClear.bind(this);
+        this.handleSearchParamsChange = this.handleSearchParamsChange.bind(this);
     }
 
     render() {
-        const searchParams = this.state.searchParams,
+        const inputUsed = "form-control is-valid",
+            inputUnused = "form-control",
+            searchParams = this.props.searchParams,
             zipCode = searchParams.get('zipCode'),
+            zipCodeIsValid = searchParams.get('zipCodeIsValid'),
             providerType = searchParams.get('providerType'),
-            zipCodeIsValid = this.state.zipCodeIsValid,
-            providerTypeIsValid = this.state.providerTypeIsValid;
+            providerTypeIsValid = searchParams.get('providerTypeIsValid'),
+            providerTypeClassName = providerTypeIsValid ? inputUsed : inputUnused,
+            distance = searchParams.get('distance'),
+            distanceIsIncluded = searchParams.get('distanceIsIncluded'),
+            distanceClass = distanceIsIncluded ? inputUsed : inputUnused;
 
-        return <ProviderSearchStateless
-            zipCode={zipCode}
-            providerType={providerType}
-            zipCodeIsValid={zipCodeIsValid}
-            providerTypeIsValid={providerTypeIsValid}
-            onZipCodeEdit={val => this.updateZipCodeParam(val)}
-            onProviderTypeChange={val => this.updateProviderTypeParam(val)}  />
+        return <div>
+            <div className="row form-inline">
+                <div className="col-4">
+                <label htmlFor='zipCodeInput'>Zip Code *</label>
+                    <ZipCodeInput
+                        id="zipCodeInput"
+                        placeholder="Zip Code"
+                        maxlength="5"
+                        isValid={zipCodeIsValid}
+                        value={zipCode}
+                        onChange={this.updateZipCodeParam} />
+                </div>
+
+                <div className="col-4">
+                    <label htmlFor='providerTypeSelect'>Provider Type *</label>
+                    <select
+                        value={providerType}
+                        className={providerTypeClassName}
+                        id="providerTypeSelect"
+                        onChange={(event) => this.updateProviderTypeParam(event.target.value)}>
+
+                        <option defaultValue>Select Provider Type</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="facility">Facility</option>
+                    </select>
+                </div>
+
+                <div className="col-2">
+                    <label htmlFor='radiusSelect'>Search Radius</label>
+                    <select
+                        id={'radiusSelect'}
+                        value={distance}
+                        className={distanceClass}
+                        onChange={(event) => this.updateDistanceParam(event.target.value)}>
+
+                        <option value={0}>Select Radius...</option>
+                        <option value={5}>0-5 mi.</option>
+                        <option value={10}>5-10 mi.</option>
+                        <option value={25}>10-25 mi.</option>
+                        <option value={50}>25-50 mi.</option>
+                        <option value={100}>50-100 mi.</option>
+                    </select>
+                </div>
+
+                <div className="col-2">
+                <label htmlFor="clearSearchButton">&nbsp;</label>
+                    <button 
+                        id="clearSearchButton"
+                        className="form-control bg-secondary text-white"
+                        onClick={this.handleSearchClear}>Clear Search</button>
+                </div>
+            </div>
+        </div>;
     }
 
     updateZipCodeParam(zipCode) {
         const strippedZipCode = zipCode.replace(/\D/g,''),
-            newSearchParams = this.state.searchParams.set('zipCode', strippedZipCode),
-            zipCodeIsValid = strippedZipCode.length === 5 ? true : false;
+            zipCodeIsValid = strippedZipCode.length === 5 ? true : false,
+            newSearchParams = this.props.searchParams.set('zipCode', strippedZipCode).set('zipCodeIsValid', zipCodeIsValid);
 
-        this.setState({ 
-            searchParams: newSearchParams,
-            zipCodeIsValid: zipCodeIsValid
-        });
-
-        this.searchOrClearResults(zipCodeIsValid, this.state.providerTypeIsValid, newSearchParams);
+        this.handleSearchParamsChange(newSearchParams);
     }
 
     updateProviderTypeParam(providerType) {
-        const newSearchParams = this.state.searchParams.set('providerType', providerType),
-            providerTypeIsValid = ['doctor', 'facility'].includes(providerType);
+        const providerTypeIsValid = ['doctor', 'facility'].includes(providerType),
+            newSearchParams = this.props.searchParams.set('providerType', providerType).set('providerTypeIsValid', providerTypeIsValid);
 
-        this.setState({ 
-            searchParams: newSearchParams,
-            providerTypeIsValid: providerTypeIsValid
-        });
-
-        this.searchOrClearResults(this.state.zipCodeIsValid, providerTypeIsValid, newSearchParams);
+        this.handleSearchParamsChange(newSearchParams);
     }
 
-    searchOrClearResults(zipCodeIsValid, providerTypeIsValid, searchParams) {
+    updateDistanceParam(distance) {
+        const distanceIsIncluded = distance !== '0',
+            newSearchParams = this.props.searchParams.set('distance', distance).set('distanceIsIncluded', distanceIsIncluded);
+
+        this.handleSearchParamsChange(newSearchParams);
+    }
+
+    handleSearchClear() {
+        this.handleSearchParamsChange(new SearchParams());
+    }
+
+    handleSearchParamsChange(searchParams) {
+        const zipCodeIsValid = searchParams.get('zipCodeIsValid'),
+            providerTypeIsValid = searchParams.get('providerTypeIsValid');
+
         if(zipCodeIsValid && providerTypeIsValid) {
-            ProviderActions.SearchProviders(searchParams);
+            ProviderActions.SearchProviders(searchParams.set('searchIsValid', true));
         } else {
-            ProviderActions.ClearSearchResults();
+            ProviderActions.ClearSearchResults(searchParams.set('searchIsValid', false));
         }
     }
 };
 
-ProviderSearchStateful.propTypes = {
-};
-
-export class ProviderSearchStateless extends Component {
-    render() {
-        const selectClassName = this.props.providerTypeIsValid ? "form-control is-valid" : "form-control"
-
-        return <div className="row">
-            <div className="col-6">
-                <ZipCodeInput
-                    id="zipCode"
-                    placeholder="Zip Code"
-                    className="form-control"
-                    maxlength="5"
-                    isValid={this.props.zipCodeIsValid}
-                    value={this.props.zipCode}
-                    onChange={this.props.onZipCodeEdit} />
-            </div>
-
-            <div className="col-6">
-                <select
-                    value={this.props.providerType}
-                    className={selectClassName}
-                    id="providerType"
-                    onChange={(event) => this.props.onProviderTypeChange(event.target.value)}>
-
-                    <option defaultValue>Select Provider Type</option>
-                    <option value="doctor">Doctor</option>
-                    <option value="facility">Facility</option>
-                </select>
-            </div>
-        </div>;
-    }
-}
-
-ProviderSearchStateless.propTypes = {
-  zipCode: PropTypes.string.isRequired,
-  providerType: PropTypes.string.isRequired,
-  zipCodeIsValid: PropTypes.bool.isRequired,
-  providerTypeIsValid: PropTypes.bool.isRequired,
-  onZipCodeEdit: PropTypes.func.isRequired,
-  onProviderTypeChange: PropTypes.func.isRequired
+ProviderSearch.propTypes = {
+    searchParams: ImmutablePropTypes.recordOf(SearchParams)
 };

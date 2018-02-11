@@ -24,3 +24,19 @@ export function populateFacilityTypes(callback) {
             console.log(response);
         });
 };
+
+export function buildListOfFilterParams(sourceList, paramName) {
+    let filteredList = Immutable.List();
+    
+    sourceList.map(sourceListObj => {
+        const immutableObject = Immutable.fromJS({
+            name: sourceListObj.get(paramName)
+        });
+
+        if (!filteredList.contains(immutableObject)) {
+            filteredList = filteredList.push(immutableObject);
+        }
+    });
+
+    return filteredList;
+}

@@ -1,16 +1,25 @@
 import * as Immutable from 'immutable';
 
 /** Initial State */
-export const ProviderSearchResults = Immutable.Record({
+export const SearchParams = Immutable.Record({
+    zipCode: '',
+    zipCodeIsValid: false,
     providerType: '',
+    providerTypeIsValid: false,
+    distance: 0,
+    distanceIsIncluded: false,
+    searchIsValid: false
+});
+
+export const ProviderSearchResults = Immutable.Record({
     providersRaw: Immutable.List(),
     providersFiltered: Immutable.List()
 });
 
 export const DoctorFilters = Immutable.Record({
     distance: 0,
-    first: '',
-    last: '',
+    firstName: '',
+    lastName: '',
     specialty: '',
     gender: ''
 });
@@ -27,14 +36,17 @@ export const Filters = Immutable.Record({
 
 export const StaticData = Immutable.Record({
     specialties: Immutable.List(),
-    facilityTypes: Immutable.List()
+    specialtiesFiltered: Immutable.List(),
+    facilityTypes: Immutable.List(),
+    facilityTypesFiltered: Immutable.List()
 });
 
 /** Static options used to filter providers */
 export const InitialState = Immutable.fromJS({
+    searchParams: new SearchParams(),
+    providerSearchResults: new ProviderSearchResults(),
     filters: new Filters(),
-    staticData: new StaticData(),
-    providerSearchResults: new ProviderSearchResults()
+    staticData: new StaticData()
 });
 
 /** Models */

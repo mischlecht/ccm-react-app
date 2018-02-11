@@ -17,10 +17,10 @@ function app(previous = appInitialState, action) {
             return ProviderReducers.setProviderResults(previous, action);
         case ActionTypes.CLEAR_PROVIDERS:
             return ProviderReducers.clearProviders(previous, action);
-        case ActionTypes.FILTER_FACILITIES:
-            return ProviderReducers.filterFacilities(previous, action);
-        case ActionTypes.RESET_FACILITY_FILTERS:
-            return ProviderReducers.resetFacilityFilters(previous, action);
+        case ActionTypes.FILTER_PROVIDERS:
+            return ProviderReducers.applyFilters(previous, action);
+        case ActionTypes.RESET_FILTERS:
+            return ProviderReducers.resetAllFilters(previous, action);
         case ActionTypes.BOOTSTRAP_SPECIALTIES:
             return ProviderReducers.gotSpecialties(previous,action);
         case ActionTypes.BOOTSTRAP_FACILITY_TYPES:

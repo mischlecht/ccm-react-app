@@ -2,7 +2,7 @@
 import * as Immutable from 'immutable';
 import * as ProviderModels from '../provider/constants/provider.models';
 
-export function projectFacilityResultsToObjects(facilityResults){
+export function projectFacilityResults(facilityResults){
     let projectedFacilityResults = Immutable.List();
 
     facilityResults.forEach(function(facility) {
@@ -25,7 +25,7 @@ export function projectFacilityResultsToObjects(facilityResults){
     return projectedFacilityResults;
 }
 
-export function projectDoctorResultsToObject(doctorResults){
+export function projectDoctorResults(doctorResults){
     let projectedDoctorResults = Immutable.List();
 
     doctorResults.forEach(function(doctor) {

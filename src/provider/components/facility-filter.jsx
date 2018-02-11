@@ -11,7 +11,6 @@ export default class FacilityFilterStateful extends Component {
         super(props);
 
         this.handleFacilityFiltersChange = this.handleFacilityFiltersChange.bind(this);
-        this.filterFacilities = this.filterFacilities.bind(this);
         this.handleResetFilters = this.handleResetFilters.bind(this);
     }
 
@@ -19,12 +18,12 @@ export default class FacilityFilterStateful extends Component {
         const facilityFilters = this.props.facilityFilters,
             facilityName = facilityFilters.get('facilityName'),
             facilityType = facilityFilters.get('facilityType'),
-            facilityTypes = this.props.facilityTypes;
+            facilityTypesFiltered = this.props.facilityTypesFiltered;
 
         return <FacilityFilterStateless
             facilityName={facilityName}
             facilityType={facilityType}
-            facilityTypes={facilityTypes}
+            facilityTypesFiltered={facilityTypesFiltered}
             updateFacilityFilters={this.handleFacilityFiltersChange}
             resetFilters={this.handleResetFilters} />;
     }
@@ -32,43 +31,41 @@ export default class FacilityFilterStateful extends Component {
     handleFacilityFiltersChange(param, val) {
         const newFacilityFilters = this.props.facilityFilters.set(param, val);
 
-        this.filterFacilities(newFacilityFilters);
-    }
-
-    filterFacilities(facilityFilters) {
-        ProviderActions.FilterFacilities(facilityFilters);
+        ProviderActions.FilterProviders(newFacilityFilters);
     }
 
     handleResetFilters() {
-        ProviderActions.ResetFacilityFilter();
+        ProviderActions.ResetFilters();
     }
 };
 
 FacilityFilterStateful.propTypes = {
     facilityFilters: ImmutabelPropTypes.recordOf(FacilityFilters).isRequired,
-    facilityTypes: ImmutabelPropTypes.list.isRequired
+    facilityTypesFiltered: ImmutabelPropTypes.list.isRequired
 };
 
 class FacilityFilterStateless extends Component {
     render() {
-        const facilityNameClassName = this.props.facilityName === '' ? "form-control" : "form-control is-valid",
-            selectClassName = this.props.facilityType === '' ? "form-control" : "form-control is-valid"
+        const facilityNameClass = this.props.facilityName === '' ? "form-control" : "form-control is-valid",
+            selectClass = this.props.facilityType === '' ? "form-control" : "form-control is-valid"
 
-        return <div className="row">
-            <div className="col-5">
+        return <div className="row form-inline">
+            <div className="col-6">
                 <TextInput
-                    className={facilityNameClassName}
+                    id='facilityNameInput'
+                    className={facilityNameClass}
                     value={this.props.facilityName} 
-                    placeholder={"Facility Name"}
+                    label='Facility Name'
+                    placeholder="Facility Name"
                     onChange={val => this.props.updateFacilityFilters('facilityName', val)} />
             </div>
            
-            <div className="col-5">
+            <div className="col-4">
+            <label htmlFor='facilityTypeSelect'>Facility Type</label>
                 <select
                     value={this.props.facilityType}
-                    className={selectClassName}
-                    text="Select Facility Type"
-                    id="facilityType"
+                    id='facilityTypeSelect'
+                    className={selectClass}
                     onChange={(event) => this.props.updateFacilityFilters('facilityType', event.target.value)}>
 
                     <option defaultValue value=''>Select Facility Type</option>
@@ -77,15 +74,17 @@ class FacilityFilterStateless extends Component {
             </div>
 
             <div className="col-2">
+            <label htmlFor='resetFacilityFiltersButton'>&nbsp;</label>
                 <button
-                    className="form-control"
-                    onClick={this.props.resetFilters} >Reset</button>
+                    id='resetFacilityFiltersButton'
+                    className="form-control bg-secondary text-white"
+                    onClick={this.props.resetFilters} >Clear Filters</button>
             </div>
         </div>;
     }
 
     renderFacilityTypes() {
-        return this.props.facilityTypes.map(facilityType => this.renderFacilityTypeOption(facilityType));
+        return this.props.facilityTypesFiltered.map(facilityType => this.renderFacilityTypeOption(facilityType));
     }
 
     renderFacilityTypeOption(facilityType) {
@@ -98,7 +97,7 @@ class FacilityFilterStateless extends Component {
 FacilityFilterStateless.propTypes = {
     facilityName: PropTypes.string.isRequired,
     facilityType: PropTypes.string.isRequired,
-    facilityTypes: ImmutabelPropTypes.list.isRequired,
+    facilityTypesFiltered: ImmutabelPropTypes.list.isRequired,
     updateFacilityFilters: PropTypes.func.isRequired,
     resetFilters: PropTypes.func.isRequired
 };

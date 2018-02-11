@@ -1,10 +1,4 @@
 /** Search + Filter Container **/
-.search-container {
-  border-radius: 15px;
-  background: #e8e8e8;
-  padding: 25px 15px 25px 15px;
-}
-
 .search-filter-container {
   border-radius: 15px;
   background: #e8e8e8;
@@ -56,4 +50,21 @@
   width: 330px;
   min-height: 250px;
   float: left;
+}
+
+/** Custom Search Inputs Filter */
+#zipCodeInput,
+#providerTypeSelect,
+#distanceSelect,
+#clearSearchButton,
+#radiusSelect,
+#lastNameInput,
+#firstNameInput,
+#specialtySelect,
+#genderSelect,
+#resetDoctorFiltersButton,
+#facilityNameInput,
+#facilityTypeSelect,
+#resetFacilityFiltersButton {
+  width: 100%;
 }

@@ -7,31 +7,38 @@ import PageTitle from '../../shared/components/page-title';
 import ProviderSearch from './provider-search';
 import ProviderResults from './provider-results';
 import ProviderFilter from './provider-filter';
+import If from '../../shared/components/if';
 
 export default class ProviderPage extends Component {
     render() {
-        // const filterOptions = this.props.providerState.get('filterOptions'),
         const providerSearchResults = this.props.providerState.get('providerSearchResults'),
+            hasSearchResults = providerSearchResults.get('providersRaw').size > 0,
+            searchParams = this.props.providerState.get('searchParams'),
+            searchIsValid = searchParams.get('searchIsValid'),
+            providerType = searchParams.get('providerType'),
             staticData = this.props.providerState.get('staticData'),
-            providerType = providerSearchResults.get('providerType'),
-            filters = this.props.providerState.get('filters'),
-            providerTypeSelected = ['doctor', 'facility'].includes(providerType);
+            filters = this.props.providerState.get('filters');
         
         return <div>
             <PageTitle title="Provider Search" />
             <div>
-                <div className={providerTypeSelected ? "search-filter-container" : "search-container"}>
-                    <ProviderSearch />
-                    {/* Add Filter Component */}
-                    <ProviderFilter
-                        filters={filters}
-                        staticData={staticData}
-                        providerType={providerType} />
+                <div className="search-filter-container">
+                    <ProviderSearch 
+                        searchParams={searchParams} />
+                    <If condition={true}>
+                        <ProviderFilter
+                            searchIsValid={searchIsValid}
+                            hasSearchResults={hasSearchResults}
+                            filters={filters}
+                            staticData={staticData}
+                            providerType={providerType} />
+                    </If>
                 </div>
 
                 <div id="provider-results-container">
-                    {/* Add Results Component */}
                     <ProviderResults
+                        searchIsValid={searchIsValid}
+                        providerType={providerType}
                         providerSearchResults={providerSearchResults} />
                 </div>
 
@@ -42,8 +49,9 @@ export default class ProviderPage extends Component {
 
 ProviderPage.propTypes = {
     providerState: ImmutablePropTypes.contains({
-        filters: ImmutablePropTypes.recordOf(Models.Filters),
+        searchParams: ImmutablePropTypes.recordOf(Models.SearchParams),
         providerSearchResults: ImmutablePropTypes.recordOf(Models.ProviderSearchResults),
+        filters: ImmutablePropTypes.recordOf(Models.Filters),
         staticData: ImmutablePropTypes.recordOf(Models.StaticData)
     }),
 }

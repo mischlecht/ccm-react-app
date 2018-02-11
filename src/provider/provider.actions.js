@@ -2,20 +2,19 @@ import { store } from '../store/store';
 import axios from 'axios';
 import * as ActionTypes from '../constants/action-types';
 
+/** Search + Filter Actions */
 export function SearchProviders (searchParams) {
     const zipCode = searchParams.get('zipCode'),
-        providerType = searchParams.get('providerType');
+        providerType = searchParams.get('providerType'),
+        distance = searchParams.get('distance');
 
     const providerApiUrl = `https://provider-api.ccmnpe.com/search`;
     let searchResults = [],
         requestParams = {
             zip: zipCode,
-            providerType
+            providerType,
+            distance
         };
-
-    if(searchParams.get('distance')) {
-        requestParams.distance = searchParams.get('distance');
-    }
 
     axios.get(providerApiUrl, {
             params: requestParams
@@ -25,43 +24,41 @@ export function SearchProviders (searchParams) {
             if (results) {
                 searchResults = results;
             }
-            FetchProvidersSuccess(searchResults, providerType);
+            FetchProvidersSuccess(searchParams, searchResults);
         });
 }
 
-function FetchProvidersSuccess(searchResults, providerType) {
+function FetchProvidersSuccess(searchParams, searchResults) {
     const action = {
         type: ActionTypes.GOT_PROVIDERS,
-        searchResults,
-        providerType
+        searchParams,
+        searchResults
     };
 
     store.dispatch(action);
 }
 
-export function ClearSearchResults() {
+export function ClearSearchResults(searchParams) {
     const action = {
-        type: ActionTypes.CLEAR_PROVIDERS
+        type: ActionTypes.CLEAR_PROVIDERS,
+        searchParams
     }
 
     store.dispatch(action);
 }
 
-/** Filter Doctors */
-
-/** Filter Facilities */
-export function FilterFacilities(facilityFilters) {
+export function FilterProviders(providerFilters) {
     const action = {
-        type: ActionTypes.FILTER_FACILITIES,
-        facilityFilters
+        type: ActionTypes.FILTER_PROVIDERS,
+        providerFilters
     }
 
     store.dispatch(action);
 }
 
-export function ResetFacilityFilter() {
+export function ResetFilters() {
     const action = {
-        type: ActionTypes.RESET_FACILITY_FILTERS,
+        type: ActionTypes.RESET_FILTERS,
     }
 
     store.dispatch(action);
