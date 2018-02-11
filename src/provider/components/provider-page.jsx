@@ -17,7 +17,8 @@ export default class ProviderPage extends Component {
             searchIsValid = searchParams.get('searchIsValid'),
             providerType = searchParams.get('providerType'),
             staticData = this.props.providerState.get('staticData'),
-            filters = this.props.providerState.get('filters');
+            filters = this.props.providerState.get('filters'),
+            searchingForProviders = this.props.providerState.getIn(['appState', 'loading']);
         
         return <div>
             <PageTitle title="Provider Search" />
@@ -38,6 +39,7 @@ export default class ProviderPage extends Component {
                 <div id="provider-results-container">
                     <ProviderResults
                         searchIsValid={searchIsValid}
+                        searchingForProviders={searchingForProviders}
                         providerType={providerType}
                         providerSearchResults={providerSearchResults} />
                 </div>
@@ -49,6 +51,7 @@ export default class ProviderPage extends Component {
 
 ProviderPage.propTypes = {
     providerState: ImmutablePropTypes.contains({
+        appState: ImmutablePropTypes.recordOf(Models.appState),
         searchParams: ImmutablePropTypes.recordOf(Models.SearchParams),
         providerSearchResults: ImmutablePropTypes.recordOf(Models.ProviderSearchResults),
         filters: ImmutablePropTypes.recordOf(Models.Filters),

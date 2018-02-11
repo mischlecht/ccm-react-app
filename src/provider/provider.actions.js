@@ -4,6 +4,10 @@ import * as ActionTypes from '../constants/action-types';
 
 /** Search + Filter Actions */
 export function SearchProviders (searchParams) {
+    store.dispatch({
+        type: ActionTypes.SEARCHING_FOR_PROVIDERS
+    });
+
     const zipCode = searchParams.get('zipCode'),
         providerType = searchParams.get('providerType'),
         distance = searchParams.get('distance');

@@ -9,6 +9,13 @@ import * as Paths from '../../shared/constants/provider-state-var-paths';
 import * as ListUtils from '../../shared/utils/list.utils';
 import * as ProviderUtils from '../../shared/utils/provider.utils';
 
+export function searchingForProviders(previous, action) {
+    let newState = previous;
+    newState = resetProviderSearchResults(newState);
+    newState = setLoadingState(newState, true);
+
+    return newState;
+}
 
 export function setProviderResults (previous, action) {
     const { searchParams, searchResults } = action;
@@ -23,6 +30,8 @@ export function setProviderResults (previous, action) {
 
     // Since this is a fresh search with new provider results, reset the filters
     newState = resetAllFilters(newState);
+
+    newState = setLoadingState(newState, false);
     
     return newState;
 }
@@ -149,6 +158,11 @@ function setFacilityTypes(previous, facilityTypes) {
 function setFacilityTypesFiltered(previous, facilityTypesFiltered) {
     let newState = previous;
     return newState.setIn(Paths.facilityTypesFiltered, facilityTypesFiltered);
+}
+
+function setLoadingState(previous, loading) {
+    let newState = previous;
+    return newState.setIn(Paths.loading, loading);
 }
 
 /******************************/

@@ -9,5 +9,7 @@ export const facilityFilters = ['providerState', 'filters', 'facilityFilters'];
 
 export const specialties = ['providerState', 'staticData', 'specialties'];
 export const specialtiesFiltered = ['providerState', 'staticData', 'specialtiesFiltered'];
-export const facilityTypes =['providerState', 'staticData', 'facilityTypes'];
-export const facilityTypesFiltered =['providerState', 'staticData', 'facilityTypesFiltered'];
+export const facilityTypes = ['providerState', 'staticData', 'facilityTypes'];
+export const facilityTypesFiltered = ['providerState', 'staticData', 'facilityTypesFiltered'];
+
+export const loading = ['providerState', 'appState', 'loading'];

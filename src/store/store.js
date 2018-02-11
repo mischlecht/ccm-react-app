@@ -13,6 +13,8 @@ function app(previous = appInitialState, action) {
             return HomeReducers.updateName(previous, action);
 
         /** Provider Actions **/
+        case ActionTypes.SEARCHING_FOR_PROVIDERS:
+            return ProviderReducers.searchingForProviders(previous, action);
         case ActionTypes.GOT_PROVIDERS:
             return ProviderReducers.setProviderResults(previous, action);
         case ActionTypes.CLEAR_PROVIDERS:

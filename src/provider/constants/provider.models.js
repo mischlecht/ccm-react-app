@@ -1,6 +1,10 @@
 import * as Immutable from 'immutable';
 
 /** Initial State */
+export const appState = Immutable.Record({
+    loading: false
+});
+
 export const SearchParams = Immutable.Record({
     zipCode: '',
     zipCodeIsValid: false,
@@ -43,6 +47,7 @@ export const StaticData = Immutable.Record({
 
 /** Static options used to filter providers */
 export const InitialState = Immutable.fromJS({
+    appState: new appState(),
     searchParams: new SearchParams(),
     providerSearchResults: new ProviderSearchResults(),
     filters: new Filters(),
