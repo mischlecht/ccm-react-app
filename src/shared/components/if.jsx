@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class If extends Component {
@@ -7,7 +7,7 @@ export default class If extends Component {
             return this.props.children;
         }
 
-        return <span/>;
+        return null;
     }
 };
 

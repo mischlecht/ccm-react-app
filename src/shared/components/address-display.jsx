@@ -6,14 +6,15 @@ import * as StringUtils from '../utils/string.utils';
 
 export default class AddressDisplay extends Component {
     render() {
-        const className = this.props.className,
+        const id = this.props.id,
+            className = this.props.className,
             addressLine1 = this.props.addressLine1,
             addressLine2 = this.props.addressLine2,
             city = this.props.city,
             state = this.props.state,
             zip = this.props.zip;
         
-        return <p className={className}>
+        return <p id={id} className={className}>
                 {addressLine1}
                 <br/>
                 <If condition={StringUtils.isNotNullOrEmpty(addressLine2)}>
@@ -26,6 +27,7 @@ export default class AddressDisplay extends Component {
 };
 
 AddressDisplay.propTypes = {
+    id: PropTypes.string,
     className: PropTypes.string,
     addressLine1: PropTypes.string.isRequired,
     addressLine2: PropTypes.string,

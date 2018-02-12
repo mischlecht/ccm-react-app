@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { ProviderSearchResults } from '../constants/provider.models';
-import DoctorDetails from './doctor-details';
-import FacilityDetails from './facility-details';
+import DoctorResults from './doctor/doctor-results';
+import FacilityResults from './facility/facility-results';
 import LoadingIcon from '../../shared/images/loading.gif';
 
 export default class ProviderResults extends Component {
@@ -38,23 +38,10 @@ export default class ProviderResults extends Component {
 
     renderProviderResults(providersFiltered) {
         if(this.props.providerType === 'doctor') {
-            return providersFiltered.map(doctor => this.renderDoctors(doctor));
+            return <DoctorResults doctors={providersFiltered} />
         } else {
-            return providersFiltered.map(facility => this.renderFacilities(facility));
-        }
-        
-    }
-
-    renderDoctors(doctor) {
-        return <DoctorDetails 
-            key={doctor.get('id')}
-            doctor={doctor} />;
-    }
-
-    renderFacilities(facility) {
-        return <FacilityDetails 
-            key={facility.get('id')}
-            facility={facility} />;
+            return <FacilityResults facilities={providersFiltered} />
+        }   
     }
 };
 

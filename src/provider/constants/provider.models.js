@@ -55,6 +55,15 @@ export const InitialState = Immutable.fromJS({
 });
 
 /** Models */
+export const Coordinates = Immutable.Record({
+    latitude: null,
+    longitude: null
+})
+
+export const MetaData = Immutable.Record({
+    coordinates: null
+});
+
 export const Doctor = Immutable.Record({
     addressLine1: '',
     addressLine2: '',
@@ -70,7 +79,8 @@ export const Doctor = Immutable.Record({
     specialty: '',
     state: '',
     type: '',
-    zip: ''
+    zip: '',
+    metaData: new MetaData()
 })
 
 export const Facility = Immutable.Record({
@@ -85,5 +95,6 @@ export const Facility = Immutable.Record({
     phone: '',
     state: '',
     type: '',
-    zip: ''
+    zip: '',
+    metaData: new MetaData()
 });

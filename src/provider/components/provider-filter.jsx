@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import DoctorFilter from './doctor-filter';
-import FacilityFilter from './facility-filter';
+import DoctorFilter from './doctor/doctor-filter';
+import FacilityFilter from './facility/facility-filter';
 import * as Models from '../constants/provider.models';
 
 export default class ProviderFilter extends Component {

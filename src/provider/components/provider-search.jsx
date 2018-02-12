@@ -63,7 +63,7 @@ export default class ProviderSearch extends Component {
                         className={distanceClass}
                         onChange={(event) => this.updateDistanceParam(event.target.value)}>
 
-                        <option value={0}>Select Radius...</option>
+                        <option value={0}>Select Radius</option>
                         <option value={5}>0-5 mi.</option>
                         <option value={10}>5-10 mi.</option>
                         <option value={25}>10-25 mi.</option>

@@ -18,7 +18,11 @@ export function searchingForProviders(previous, action) {
 }
 
 export function setProviderResults (previous, action) {
-    const { searchParams, searchResults } = action;
+    const {
+        searchParams,
+        searchResults,
+        metaData
+    } = action;
 
     let newState = previous;
 
@@ -27,6 +31,9 @@ export function setProviderResults (previous, action) {
     
     // set search results in store
     newState = projectProviderResults(newState, searchResults);
+
+    // project metadata to their providerResults
+    newState = projectMetaDataToProviders(newState, metaData);
 
     // Since this is a fresh search with new provider results, reset the filters
     newState = resetAllFilters(newState);
@@ -87,6 +94,18 @@ function projectFacilityResults(previous, facilitySearchResults) {
     return newState;
 }
 
+function projectMetaDataToProviders(previous, metaData) {
+    let newState = previous;
+
+    const providers = getProvidersRaw(newState),
+        providersWithMetaData = Projections.projectMetaDataToProviders(metaData, providers);
+
+    newState = setProvidersRaw(newState, providersWithMetaData);
+    newState = setProvidersFiltered(newState, providersWithMetaData);
+
+    return newState;
+}
+
 export function applyFilters(previous, action) {
     const { providerFilters } = action;
     let newState = previous;
@@ -115,6 +134,11 @@ function getProvidersRaw(previous) {
 /*******************************/
 /** FUNCTIONAL SETTER REDUCERS */
 /*******************************/
+function setProvidersRaw(previous, providersRaw) {
+    let newState = previous;
+    return newState.setIn(Paths.providersRaw, providersRaw);
+}
+
 function setProvidersFiltered(previous, providersFiltered) {
     let newState = previous;
     return newState.setIn(Paths.providersFiltered, providersFiltered);

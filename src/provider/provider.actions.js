@@ -14,6 +14,7 @@ export function SearchProviders (searchParams) {
 
     const providerApiUrl = `https://provider-api.ccmnpe.com/search`;
     let searchResults = [],
+        searchResultsMetaData = [],
         requestParams = {
             zip: zipCode,
             providerType,
@@ -24,19 +25,22 @@ export function SearchProviders (searchParams) {
             params: requestParams
         })
         .then(response => {
-            const results = response.data.results;
-            if (results) {
-                searchResults = results;
-            }
-            FetchProvidersSuccess(searchParams, searchResults);
+            const results = response.data.results,
+                metaData = response.data.meta;
+
+            if (results) { searchResults = results }
+            if (metaData) { searchResultsMetaData = metaData }
+            
+            FetchProvidersSuccess(searchParams, searchResults, searchResultsMetaData);
         });
 }
 
-function FetchProvidersSuccess(searchParams, searchResults) {
+function FetchProvidersSuccess(searchParams, searchResults, metaData) {
     const action = {
         type: ActionTypes.GOT_PROVIDERS,
         searchParams,
-        searchResults
+        searchResults,
+        metaData
     };
 
     store.dispatch(action);

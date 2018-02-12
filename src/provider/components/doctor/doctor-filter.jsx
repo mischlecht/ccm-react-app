@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImmutabelPropTypes from 'react-immutable-proptypes';
 
-import { DoctorFilters } from '../constants/provider.models';
-import TextInput from '../../shared/components/text-input';
-import * as ProviderActions from '../provider.actions';
+import { DoctorFilters } from '../../constants/provider.models';
+import TextInput from '../../../shared/components/text-input';
+import * as ProviderActions from '../../provider.actions';
 
 export default class DoctorFilterStateful extends Component {
     constructor(props){
@@ -97,7 +97,7 @@ class DoctorFilterStateless extends Component {
                         {this.renderSpecialties()}
                     </select>
                 </div>
-                <div className="col-2">
+                <div className="col-3">
                     <label htmlFor='genderSelect'>Gender</label>
                     <select
                         id='genderSelect'
@@ -110,7 +110,7 @@ class DoctorFilterStateless extends Component {
                         <option value='F'>Female</option>
                     </select>
                 </div>
-                <div className="col-2"/>
+                <div className="col-1"/>
                 <div className="col-2">
                     <label htmlFor='resetDoctorFiltersButton'>&nbsp;</label>
                     <button

@@ -24,7 +24,7 @@ export default class ProviderController extends Component {
     }
 
     render() {
-        return <div>
+        return <div className="provider-page-content">
             <ProviderPage
                 providerState={ this.state.providerState } />
         </div>;

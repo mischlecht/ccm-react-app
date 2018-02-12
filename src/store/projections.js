@@ -1,6 +1,10 @@
 /* eslint-disable import/default */
 import * as Immutable from 'immutable';
 import * as ProviderModels from '../provider/constants/provider.models';
+import {
+    MetaData,
+    Coordinates
+} from '../provider/constants/provider.models';
 
 export function projectFacilityResults(facilityResults){
     let projectedFacilityResults = Immutable.List();
@@ -49,4 +53,28 @@ export function projectDoctorResults(doctorResults){
     });
 
     return projectedDoctorResults;
+}
+
+export function projectMetaDataToProviders(metaData, providers) {
+
+    const metaDataMap = Immutable.Map(metaData);
+    let providersWithMetaData = providers;
+
+    metaDataMap.forEach((value, key) => {
+        const indexOfProviderToAddMetaData = providers.findIndex(provider => {
+            return provider.get('id').toString() === key;
+        });
+
+        if(indexOfProviderToAddMetaData !== -1) {
+            const projectedMetaData = new MetaData({
+                coordinates: new Coordinates({
+                    latitude: value.coordinates.latitude,
+                    longitude: value.coordinates.longitude
+                })
+            });
+            providersWithMetaData = providersWithMetaData.setIn([indexOfProviderToAddMetaData, 'metaData'], projectedMetaData);
+        }
+    });
+
+    return providersWithMetaData;
 }

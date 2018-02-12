@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImmutabelPropTypes from 'react-immutable-proptypes';
 
-import { FacilityFilters } from '../constants/provider.models';
-import TextInput from '../../shared/components/text-input';
-import * as ProviderActions from '../provider.actions';
+import { FacilityFilters } from '../../constants/provider.models';
+import TextInput from '../../../shared/components/text-input';
+import * as ProviderActions from '../../provider.actions';
 
 export default class FacilityFilterStateful extends Component {
     constructor(props){

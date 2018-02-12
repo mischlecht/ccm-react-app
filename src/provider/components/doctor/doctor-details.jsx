@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { Doctor } from '../constants/provider.models';
-import AddressDisplay from '../../shared/components/address-display';
-import If from '../../shared/components/if';
+import { Doctor } from '../../constants/provider.models';
+import AddressDisplay from '../../../shared/components/address-display';
+import If from '../../../shared/components/if';
 
 export default class DoctorDetails extends Component {
     render() {
@@ -18,7 +19,7 @@ export default class DoctorDetails extends Component {
             state = doctor.get('state'),
             zip = doctor.get('zip');
         
-        return <div className="doctor-details provider-details card bg-light">
+        return <div className="doctor-details provider-details card bg-light" onClick={() => this.props.onClick(doctor)}>
             <div className="card-header">
                 <h5 className="card-title">{lastName}, {firstName}, {degree}</h5>
                 <If condition={distance !== 0}>
@@ -35,10 +36,11 @@ export default class DoctorDetails extends Component {
                     state={state}
                     zip={zip} />
             </div>
-        </div>
+        </div>;
     }
 };
 
 DoctorDetails.propTypes = {
-    doctor: ImmutablePropTypes.recordOf(Doctor)
+    doctor: ImmutablePropTypes.recordOf(Doctor),
+    onClick: PropTypes.func.isRequired
 }
