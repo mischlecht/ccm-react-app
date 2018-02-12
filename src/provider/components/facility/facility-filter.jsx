@@ -77,7 +77,7 @@ class FacilityFilterStateless extends Component {
             <label htmlFor='resetFacilityFiltersButton'>&nbsp;</label>
                 <button
                     id='resetFacilityFiltersButton'
-                    className="form-control bg-secondary text-white"
+                    className="form-control text-white"
                     onClick={this.props.resetFilters} >Clear Filters</button>
             </div>
         </div>;

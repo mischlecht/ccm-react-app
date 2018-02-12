@@ -43,7 +43,7 @@ export default class FacilityModal extends Component {
                         state={state}
                         zip={zip} />
 
-                    <a href={`tel:${phone}`}>{phone}</a>
+                    <a className="modal-phone-number" href={`tel:${phone}`}>{phone}</a>
                 </div>
                 <If condition={coordinates !== null} >
                     <div className="col-7">

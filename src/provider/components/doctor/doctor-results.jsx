@@ -24,7 +24,7 @@ export default class DoctorResults extends Component {
             {this.renderDoctorCards(doctors)}
             <Modal
                 isOpen={this.state.modalIsOpen}
-                className='modal-details'
+                className="modal-details"
                 overlayClassName="modal-overlay"
                 ariaHideApp={false} >
                 <DoctorModal

@@ -6,7 +6,7 @@ export default class Navbar extends Component {
   render() {
     return (
         <div id="navbar-main">
-            <nav className="navbar navbar-expand-lg navbar-dark bg-secondary">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-info app-navbar">
                 <a className="navbar-brand text-white" href="/">CCM React App</a>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">

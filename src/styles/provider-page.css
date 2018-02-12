@@ -12,15 +12,20 @@
 /** Search + Filter Container **/
 .search-filter-container {
   border-radius: 15px;
-  background: #e8e8e8;
+  background: #F2A41E;
   padding: 25px 15px 25px 15px;
   text-align: left;
   margin-bottom: 15px;
+  color: white;
 }
 
 /** Zip + Provider Type Search Container **/
 #search-button {
   width: 100%;
+}
+
+.is-valid {
+  border: 2px solid #28a745;
 }
 
 /** Filter container sections for  **/
@@ -46,7 +51,8 @@
   text-align: left;
   border-radius: 10px;
   box-shadow: 1px 1px 1px 1px #ccc;
-
+  background: #77A22E!important;
+  color: white;
 }
 
 .provider-details:hover {
@@ -103,6 +109,10 @@
   width: 75px;
 }
 
+.modal-phone-number {
+  font-weight: bold;
+}
+
 #close-modal-button:hover {
   background-color: lightgray
 }
@@ -124,13 +134,13 @@
   width: 100%;
 }
 
-/** Google Maps Embed */
-.doctor-icon {
-  color: red;
-  height: 25px;
+#clearSearchButton,
+#resetDoctorFiltersButton,
+#resetFacilityFiltersButton {
+  background-color: #C5102F!important;
 }
 
-.facility-icon {
-  color: red;
-  /* height: 25px; */
+/** Google Maps Embed */
+.doctor-icon, .facility-icon {
+  color: #C5102F;
 }

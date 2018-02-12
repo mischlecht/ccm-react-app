@@ -5,3 +5,27 @@ body {
 .app-body {
   text-align: center;
 }
+
+.easter-egg-modal-details {
+  padding: 0;
+  width: 444px;
+  height: 336px;
+  margin: 280px auto auto auto;
+  border-radius: 15px;
+  overflow: hide;
+  background: white;
+}
+
+.easter-egg-modal-overlay {
+  min-width: 960px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(100, 100, 100, 0.90);
+}
+
+.easter-egg-img {
+  border-radius: 15px;
+}

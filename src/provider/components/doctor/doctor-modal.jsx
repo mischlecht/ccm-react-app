@@ -45,14 +45,14 @@ export default class DoctorModal extends Component {
                         state={state}
                         zip={zip} />
 
-                    <a href={`tel:${phone}`}>{phone}</a>
+                    <a className="modal-phone-number" href={`tel:${phone}`}>{phone}</a>
                 </div>
                 <If condition={coordinates !== null} >
                     <div className="col-7">
                         <GoogleMapsLocation
                         lat={latitude}
                         lng={longitude}
-                        providerType='facility' />
+                        providerType='doctor' />
                     </div>
                 </If>
             </div>

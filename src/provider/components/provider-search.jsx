@@ -73,10 +73,10 @@ export default class ProviderSearch extends Component {
                 </div>
 
                 <div className="col-2">
-                <label htmlFor="clearSearchButton">&nbsp;</label>
+                <label htmlFor="clearSearchButton" className="input-label">&nbsp;</label>
                     <button 
                         id="clearSearchButton"
-                        className="form-control bg-secondary text-white"
+                        className="form-control text-white"
                         onClick={this.handleSearchClear}>Clear Search</button>
                 </div>
             </div>
