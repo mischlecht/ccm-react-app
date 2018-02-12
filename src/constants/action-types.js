@@ -1,5 +1,3 @@
-export const UPDATE_NAME = 'UPDATE_NAME';
-
 /** Provider Actions **/
 export const GOT_PROVIDERS = "GOT_PROVIDERS";
 export const CLEAR_PROVIDERS = "CLEAR_PROVIDERS";

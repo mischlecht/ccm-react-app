@@ -13,11 +13,12 @@ export default class EasterEgg extends Component {
 
         this.hideModal = this.hideModal.bind(this);
     }
+
     componentDidMount() {
         setTimeout(this.hideModal, 3000);
     }
 
-    render() {
+    render() {    
         return <Modal
             isOpen={this.state.modalIsOpen}
             className="easter-egg-modal-details"
@@ -28,8 +29,8 @@ export default class EasterEgg extends Component {
     }
 
     hideModal() {
-        this.setState({ modalIsOpen: false })
-        this.props.hideEasterEgg()
+        this.setState({ modalIsOpen: false });
+        this.props.hideEasterEgg();
     }
 }
 

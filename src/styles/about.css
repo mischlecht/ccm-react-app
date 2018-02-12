@@ -1,0 +1,13 @@
+.about-page-content {
+    margin: auto;
+    width: 80%;
+    min-width: 960px;
+    max-width: 1080px;
+}
+
+.about-container {
+    text-align: left;
+    min-width: 500px;
+    width: 700px;
+    margin: 0 auto;
+}

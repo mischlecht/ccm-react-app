@@ -8,7 +8,6 @@ export default class PageTitle extends Component {
             <div className="container-fluid text-center">
                 <h1>{this.props.title}</h1>
             </div>
-
             <br/>
             <hr/>
             <br/>
