@@ -27,7 +27,7 @@ export function setProviderResults (previous, action) {
     let newState = previous;
 
     // update search params in store
-    newState = updateSearchParams(newState, searchParams);
+    newState = setSearchParams(newState, searchParams);
     
     // set search results in store
     newState = projectProviderResults(newState, searchResults);
@@ -41,10 +41,6 @@ export function setProviderResults (previous, action) {
     newState = setLoadingState(newState, false);
     
     return newState;
-}
-
-function updateSearchParams (previous, newSearchParams) {
-    return previous.setIn(Paths.searchParams, newSearchParams);
 }
 
 function projectProviderResults(previous, searchResults) {
@@ -134,6 +130,10 @@ function getProvidersRaw(previous) {
 /*******************************/
 /** FUNCTIONAL SETTER REDUCERS */
 /*******************************/
+export function setSearchParams (previous, newSearchParams) {
+    return previous.setIn(Paths.searchParams, newSearchParams);
+}
+
 function setProvidersRaw(previous, providersRaw) {
     let newState = previous;
     return newState.setIn(Paths.providersRaw, providersRaw);
@@ -277,7 +277,7 @@ export function resetAllFilters(previous, action) {
 export function clearProviders (previous, action) {
     let newState = previous;
 
-    newState = updateSearchParams(newState, action.searchParams);
+    newState = setSearchParams(newState, action.searchParams);
     newState = resetProviderSearchResults(newState)
     newState = resetFilters(newState);
     

@@ -46,7 +46,7 @@ export default class FacilityModal extends Component {
                     <a href={`tel:${phone}`}>{phone}</a>
                 </div>
                 <If condition={coordinates !== null} >
-                    <div className="col-7 bg-secondary">
+                    <div className="col-7">
                         <GoogleMapsLocation
                         lat={latitude}
                         lng={longitude}

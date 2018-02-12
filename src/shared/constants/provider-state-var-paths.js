@@ -1,4 +1,5 @@
 export const searchParams = ['providerState', 'searchParams'];
+export const zipCodeSearchParam = ['providerState', 'searchParams', 'zipCode']
 export const providerSearchResults = ['providerState', 'providerSearchResults'];
 export const providersRaw = ['providerState', 'providerSearchResults', 'providersRaw'];
 export const providersFiltered = ['providerState', 'providerSearchResults', 'providersFiltered'];
