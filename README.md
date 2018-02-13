@@ -43,6 +43,7 @@ There are just a few steps in order to get this beauty of an application up and 
 &nbsp;
 
 ### TODO:
+- Incorporate Typescript
 - Center Google Maps on zip code searched on
 - Figure out Google Maps funny business happening in the browser console
 - moar tests
