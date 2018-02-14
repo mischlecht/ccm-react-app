@@ -69,12 +69,12 @@ export function projectMetaDataToProviders(metaData, providers) {
             let projectedMetaData = new MetaData();
 
             if(value.coordinates) {
-                projectedMetaData.set('coordinates', 
-                    new Coordinates({
+                projectedMetaData = new MetaData({
+                    coordinates: new Coordinates({
                         latitude: value.coordinates.latitude,
                         longitude: value.coordinates.longitude
                     })
-                );
+                });
             }
             providersWithMetaData = providersWithMetaData.setIn([indexOfProviderToAddMetaData, 'metaData'], projectedMetaData);
         }
