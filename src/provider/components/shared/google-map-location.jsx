@@ -34,6 +34,6 @@ export default class GoogleMapLocation extends Component {
 
 GoogleMapLocation.propTypes = {
     providerType: PropTypes.string.isRequired,
-    lat: PropTypes.number.isRequired,
-    lng: PropTypes.number.isRequired
+    lat: PropTypes.number,
+    lng: PropTypes.number
 }
