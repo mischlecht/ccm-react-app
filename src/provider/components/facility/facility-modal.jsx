@@ -20,16 +20,18 @@ export default class FacilityModal extends Component {
             phone = facility.get('phone'),
             coordinates = facility.getIn(['metaData', 'coordinates']);
         let latitude = null,
-            longitude = null;
+            longitude = null,
+            coordinatesExist = false;
 
         if (coordinates) {
             latitude = coordinates.get('latitude');
-            longitude = coordinates.get('longitude')
+            longitude = coordinates.get('longitude');
+            coordinatesExist = true;
         }
         
         return <div className="doctor-modal-details">
             <div className="row modal-details-content">
-                <div className={coordinates ? "col-5" : "col"}>
+                <div className={coordinatesExist ? "col-5" : "col"}>
                     <h3>{facilityName}</h3>
                     <If condition={distance !== 0}>
                         <p><em>({distance} mi.)</em></p>
@@ -45,7 +47,7 @@ export default class FacilityModal extends Component {
 
                     <a className="modal-phone-number" href={`tel:${phone}`}>{phone}</a>
                 </div>
-                <If condition={coordinates !== null} >
+                <If condition={coordinatesExist} >
                     <div className="col-7">
                         <GoogleMapsLocation
                         lat={latitude}
